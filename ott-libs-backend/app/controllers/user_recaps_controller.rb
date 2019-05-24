@@ -1,0 +1,2 @@
+class UserRecapsController < ApplicationController
+end

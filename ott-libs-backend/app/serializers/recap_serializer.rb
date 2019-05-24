@@ -1,5 +1,7 @@
 class RecapSerializer < ActiveModel::Serializer
-  attributes :id, :save_slot
-  has_one :user
-  has_one :story
+  attributes :id
+  has_many :recap_stories
+  has_many :user_recaps
+  has_many :users, through: :user_recaps
+  has_many :stories, through: :recap_stories
 end

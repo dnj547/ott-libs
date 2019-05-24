@@ -1,0 +1,2 @@
+class RecapStoriesController < ApplicationController
+end

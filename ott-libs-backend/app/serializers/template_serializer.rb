@@ -1,4 +1,4 @@
 class TemplateSerializer < ActiveModel::Serializer
-  attributes :id, :title, :sentences
+  attributes :id, :title, :body
   has_many :stories
 end
