@@ -1,0 +1,2 @@
+class RecapsController < ApplicationController
+end
