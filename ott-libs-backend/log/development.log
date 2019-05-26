@@ -6836,3 +6836,124 @@ Processing by Api::V1::RecapsController#index as */*
 Completed 200 OK in 55ms (Views: 46.0ms | ActiveRecord: 8.6ms)
 
 
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:42:27 -0400
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/ferrisboran/.rvm/gems/ruby-2.6.1/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by Api::V1::RecapsController#index as */*
+Completed 204 No Content in 20ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:42:29 -0400
+Processing by Api::V1::RecapsController#index as */*
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:42:43 -0400
+  
+AbstractController::ActionNotFound (The action 'index' could not be found for Api::V1::RecapsController):
+  
+actionpack (5.2.3) lib/abstract_controller/base.rb:129:in `process'
+actionpack (5.2.3) lib/action_controller/metal.rb:191:in `dispatch'
+actionpack (5.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (5.2.3) lib/action_dispatch/routing/route_set.rb:52:in `dispatch'
+actionpack (5.2.3) lib/action_dispatch/routing/route_set.rb:34:in `serve'
+actionpack (5.2.3) lib/action_dispatch/journey/router.rb:52:in `block in serve'
+actionpack (5.2.3) lib/action_dispatch/journey/router.rb:35:in `each'
+actionpack (5.2.3) lib/action_dispatch/journey/router.rb:35:in `serve'
+actionpack (5.2.3) lib/action_dispatch/routing/route_set.rb:840:in `call'
+rack (2.0.7) lib/rack/etag.rb:25:in `call'
+rack (2.0.7) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.7) lib/rack/head.rb:12:in `call'
+activerecord (5.2.3) lib/active_record/migration.rb:559:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.3) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.3) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.3) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.3) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.3) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.3) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.7) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.3) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.7) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.3) lib/rack/cors.rb:95:in `call'
+railties (5.2.3) lib/rails/engine.rb:524:in `call'
+puma (3.12.1) lib/puma/configuration.rb:227:in `call'
+puma (3.12.1) lib/puma/server.rb:660:in `handle_request'
+puma (3.12.1) lib/puma/server.rb:474:in `process_client'
+puma (3.12.1) lib/puma/server.rb:334:in `block in run'
+puma (3.12.1) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:43:36 -0400
+Processing by Api::V1::RecapsController#index as */*
+Completed 204 No Content in 10ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:43:41 -0400
+Processing by Api::V1::RecapsController#index as */*
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/recaps" for ::1 at 2019-05-26 15:48:11 -0400
+Processing by Api::V1::RecapsController#index as */*
+  [1m[36mRecap Load (0.6ms)[0m  [1m[34mSELECT "recaps".* FROM "recaps"[0m
+  ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.5ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.4ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.3ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 2]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.2ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 2]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 2]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 2]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.3ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 3]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.3ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 3]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 3]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 3]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.3ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 4]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.2ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 4]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 4]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 4]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.2ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 5]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.2ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 5]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 5]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 5]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mRecapStory Load (0.2ms)[0m  [1m[34mSELECT "recap_stories".* FROM "recap_stories" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 6]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUserRecap Load (0.2ms)[0m  [1m[34mSELECT "user_recaps".* FROM "user_recaps" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 6]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "user_recaps" ON "users"."id" = "user_recaps"."user_id" WHERE "user_recaps"."recap_id" = $1[0m  [["recap_id", 6]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers]   [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "recap_stories" ON "stories"."id" = "recap_stories"."story_id" WHERE "recap_stories"."recap_id" = $1[0m  [["recap_id", 6]]
+[active_model_serializers]   ↳ app/controllers/api/v1/recaps_controller.rb:4
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (97.86ms)
+Completed 200 OK in 135ms (Views: 95.3ms | ActiveRecord: 29.1ms)
+
+
