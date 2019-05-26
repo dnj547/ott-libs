@@ -5,6 +5,11 @@ USERS_URL = "http://localhost:3000/api/v1/users"
 STORIES_URL = "http://localhost:3000/api/v1/stories"
 TEMPLATES_URL = "http://localhost:3000/api/v1/templates"
 RECAPS_URL = "http://localhost:3000/api/v1/recaps"
+const template1 = document.querySelector('#template-1')
+const playGame = document.querySelector('#play-game')
+
+template1.style.display = 'none'
+playGame.style.display = 'none'
 
 submitUser.addEventListener('click',e=>{
 
@@ -20,12 +25,18 @@ submitUser.addEventListener('click',e=>{
                 return story.words}).join(" ")}
               </li>
             </ul>
-            <br>
-            <br>
-            <input type="submit" value="Play" id="play-game">
           `
         }
+        playGame.style.display = ''
       })
+    })
+    playGame.addEventListener('click', e=>{
+      user.style.display = 'none'
+      submitUser.style.display = 'none'
+      playGame.style.display = 'none'
+      userName.style.display = 'none'
+      template1.style.display = ''
+
     })
 
 })
