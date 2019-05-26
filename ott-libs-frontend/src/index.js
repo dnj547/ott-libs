@@ -1,10 +1,12 @@
-const userName = document.querySelector('#user-name')
-const user = document.querySelector('#uname')
-const submitUser = document.querySelector('#submit-user')
 USERS_URL = "http://localhost:3000/api/v1/users"
 STORIES_URL = "http://localhost:3000/api/v1/stories"
 TEMPLATES_URL = "http://localhost:3000/api/v1/templates"
 RECAPS_URL = "http://localhost:3000/api/v1/recaps"
+
+const bodyYo = document.querySelector('#body-yo')
+const userName = document.querySelector('#user-name')
+const user = document.querySelector('#uname')
+const submitUser = document.querySelector('#submit-user')
 const template1 = document.querySelector('#template-1')
 const playGame = document.querySelector('#play-game')
 
@@ -30,13 +32,13 @@ submitUser.addEventListener('click',e=>{
         playGame.style.display = ''
       })
     })
-    playGame.addEventListener('click', e=>{
-      user.style.display = 'none'
-      submitUser.style.display = 'none'
-      playGame.style.display = 'none'
-      userName.style.display = 'none'
-      template1.style.display = ''
 
-    })
+})
 
+playGame.addEventListener('click', e=>{
+  user.style.display = 'none'
+  submitUser.style.display = 'none'
+  playGame.style.display = 'none'
+  userName.style.display = 'none'
+  template1.style.display = ''
 })
