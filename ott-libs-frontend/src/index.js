@@ -8,6 +8,7 @@ const userName = document.querySelector('#user-name')
 const user = document.querySelector('#uname')
 const submitUser = document.querySelector('#submit-user')
 const template1 = document.querySelector('#template-1')
+const temp1Form = document.querySelector('#temp1-form')
 const playGame = document.querySelector('#play-game')
 
 template1.style.display = 'none'
@@ -41,4 +42,10 @@ playGame.addEventListener('click', e=>{
   playGame.style.display = 'none'
   userName.style.display = 'none'
   template1.style.display = ''
+})
+
+temp1Form.addEventListener('submit',e=>{
+  e.preventDefault()
+  temp1Form.style.color = "black"
+  console.log(e.target.children[0].children[0].value);
 })
