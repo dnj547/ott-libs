@@ -30,16 +30,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_203921) do
   end
 
   create_table "stories", force: :cascade do |t|
-    t.bigint "template_id"
-    t.string "words"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["template_id"], name: "index_stories_on_template_id"
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string "title"
-    t.string "body"
+    t.string "full_story"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +52,6 @@ ActiveRecord::Schema.define(version: 2019_05_24_203921) do
 
   add_foreign_key "recap_stories", "recaps"
   add_foreign_key "recap_stories", "stories"
-  add_foreign_key "stories", "templates"
   add_foreign_key "user_recaps", "recaps"
   add_foreign_key "user_recaps", "users"
 end
