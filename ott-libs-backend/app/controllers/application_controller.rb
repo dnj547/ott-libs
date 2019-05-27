@@ -6,8 +6,6 @@ class ApplicationController < ActionController::API
       @users = User.all
       @recaps = Recap.all
       @stories = Story.all
-      @recap_stories = RecapStory.all
-      @user_recaps = UserRecap.all
     end
 
 end

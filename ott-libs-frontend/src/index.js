@@ -7,37 +7,42 @@ RECAPS_URL = "http://localhost:3000/api/v1/recaps"
 const frontPage = document.querySelector('#front-page')
 const userForm = document.querySelector('#user-form')
 const signIn = document.querySelector('#signin')
-const user = document.querySelector('#uname')
+const userName = document.querySelector('#uname')
 const userRecaps = document.querySelector('#user-recaps')
 const template1 = document.querySelector('#template-1')
 const temp1Form = document.querySelector('#temp1-form')
 const playGame = document.querySelector('#play-game')
-// All Users
-let allUsers = []
 // Initial Page View
 template1.style.display = 'none'
 playGame.style.display = 'none'
-// Populate All Users
-fetch(USERS_URL)
-  .then(r=>r.json())
-  .then(users=>{
-    users.forEach(user=>{
-      allUsers.push(user.name)
-    })
-  })
+
 // Create New User or Show Old User's Recaps
 userForm.addEventListener('submit',e=>{
   e.preventDefault()
-  if (allUsers.includes(user.value)) {
-    listUserRecaps()
-  } else {
-    debugger
-    newUser()
-  }
+  fetch(USERS_URL)
+  .then(r=>r.json())
+  .then(users=>{
+    let user = users.find(user => user.name === userName.value)
+    if (user) {
+      userRecaps.innerHTML +=`
+      <h5>Save Slot 1</h5>
+        <p>${user.stories.map(story=>{
+          if (story.recap_id == 1) {
+            return story.full_story
+          } else {
+            return "blah"
+          }
+        })}</p>
+      `
+    } else {
+      newUser()
+    }
+    playGame.style.display = ''
+  })
 })
 // Start Game
 playGame.addEventListener('click', e=>{
-  user.style.display = 'none'
+  userName.style.display = 'none'
   playGame.style.display = 'none'
   signIn.style.display = 'none'
   template1.style.display = ''
@@ -60,8 +65,16 @@ temp1Form.addEventListener('submit',e=>{
       storyArr.push(eChild[i].value)
     }
   }
-
-
+  fetch(STORIES_URL,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      'full_story': storyArr.join(" ")
+    })
+  })
 })
 
 
@@ -85,29 +98,8 @@ function newUser() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      'name': user.value
+      'name': userName.value
     })
   })
   playGame.style.display = ''
-}
-
-function listUserRecaps() {
-  fetch(RECAPS_URL)
-    .then(r=>r.json())
-    .then(recaps=>{
-      recaps.forEach(recap=>{
-        if (recap.users[0].name === user.value) {
-          userRecaps.innerHTML +=`
-          <ul>
-          <li>${recap.users[0].name}</li>
-          <li>${recap.stories.map(story=>{
-            debugger
-            return story.full_story}).join(" ")}
-            </li>
-            </ul>
-            `
-          }
-          playGame.style.display = ''
-        })
-    })
 }

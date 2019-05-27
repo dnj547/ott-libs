@@ -5,7 +5,7 @@ class Api::V1::StoriesController < ApplicationController
   end
 
   def create
-
+    byebug
   end
 
   def show

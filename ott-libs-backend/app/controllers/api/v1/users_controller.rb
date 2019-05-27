@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(name: params[:name])
+    @user = User.find_or_create_by(name: params[:name])
   end
 
   def show
