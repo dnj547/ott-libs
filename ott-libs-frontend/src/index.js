@@ -9,6 +9,7 @@ const userForm = document.querySelector('#user-form')
 const signIn = document.querySelector('#signin')
 const userName = document.querySelector('#uname')
 const userRecaps = document.querySelector('#user-recaps')
+const newGameBtn = document.querySelector('#new-game-btn')
 const template1 = document.querySelector('#template-1')
 const temp1Form = document.querySelector('#temp1-form')
 
@@ -25,7 +26,7 @@ userForm.addEventListener('submit',e=>{
     if (user) {
       userRecaps.innerHTML +=`
       <h1>${user.name}</h1>`
-      for (var i = 1; i < 4; i++) {
+      for (var i = user.stories.length; i > 0; i--) {
         const fullStory = []
         user.stories.forEach(story=>{
           if (story.recap == i) {
@@ -34,22 +35,19 @@ userForm.addEventListener('submit',e=>{
         })
         if (fullStory.length > 0) {
           userRecaps.innerHTML +=`
-          <label>Save Slot ${i}</label>
+          <label>${i} - Recap</label>
           <p>${fullStory.join(" ")}</p>
-          <input type="submit" data-save-id=${i} accessKey=${user.id} value="Continue"/>
-          <input type="submit" data-save-id=${i} accessKey=${user.id} value="New Game"/>
-          <br>
-          <br>
-          `
-        } else {
-          userRecaps.innerHTML +=`
-          <label>Save Slot ${i}</label>
-          <input type="submit" data-save-id=${i} accessKey=${user.id} value="New Game"/>
+          <input type="submit" name=${i} accessKey=${user.id} value="Continue"/>
           <br>
           <br>
           `
         }
       }
+      let recapNum = parseInt(userRecaps.children[1].innerText)
+      recapNum++
+      newGameBtn.name = recapNum
+      newGameBtn.accessKey = user.id
+      console.log(newGameBtn);
     } else {
       newUser()
     }
@@ -61,7 +59,6 @@ userForm.addEventListener('submit',e=>{
 userRecaps.addEventListener('click', e=>{
   let userId = parseInt(e.target.accessKey)
   let saveSlot = parseInt(e.target.attributes[1].value)
-  const tempSubmit = `<input type="submit" accessKey=${userId} name=${saveSlot} />`
   const input = document.createElement('input')
   input.type = 'submit'
   input.accessKey = userId
@@ -106,18 +103,6 @@ temp1Form.addEventListener('submit',e=>{
   })
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
 // HELPER FETCHES
 function newUser() {
   fetch(USERS_URL,{
@@ -131,6 +116,6 @@ function newUser() {
     })
   })
   userRecaps.innerHTML +=`
-  <input type="submit" data-save-id=1 value="New Game"/>
+  <input type="submit" name=1 value="New Game"/>
   `
 }

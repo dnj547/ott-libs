@@ -1,7 +1,10 @@
 class Api::V1::StoriesController < ApplicationController
 
   def index
-    render json: @stories
+    @recaps = Story.all.group_by {|story| [story.user_id, story.recap]}
+    @sorted_recaps = @recaps.sort_by {|key, value| key[0]}
+    @sorted_recaps.flatten!(1)
+    render json: @sorted_recaps
   end
 
   def create
