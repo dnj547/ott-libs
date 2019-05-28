@@ -48,9 +48,26 @@ frontPage.addEventListener('click',e=>{
       document.querySelector(`#template-${levels}`).style.display = ''
       break;
     case "submit-level":
+      let eChild = e.target.parentElement.children
       e.preventDefault()
       document.querySelector(`#temp${levels}-form`).style.color = 'black'
       debugger
+      // Create Array to Easily Save to User's Stories
+      let storyArr = []
+      // forEach() cannot be used with e.target.parent
+      // innerText of <p> will not be empty but
+      // innerText of <input> will be empty
+      // Need to call .value on <input>
+      for (var i = 0; i < eChild.length - 1; i++) {
+        if (eChild[i].innerText !== "") {
+          storyArr.push(eChild[i].innerText)
+        } else {
+          storyArr.push(eChild[i].value)
+        }
+      }
+      e.target.parentElement.innerHTML = `
+      <p>${storyArr.join(" ")}</p>
+      `
       break;
     default:
 
@@ -59,22 +76,22 @@ frontPage.addEventListener('click',e=>{
 
 // Save Answers to User's Stories
 // temp1Form.addEventListener('submit',e=>{
-//   let eChild = e.target.children
+  // let eChild = e.target.parent
 //   e.preventDefault()
 //   temp1Form.style.color = "black"
-//   // Create Array to Easily Save to User's Stories
-//   let storyArr = []
-//   // forEach() cannot be used with e.target.children
-//   // innerText of <p> will not be empty but
-//   // innerText of <input> will be empty
-//   // Need to call .value on <input>
-//   for (var i = 0; i < eChild.length - 1; i++) {
-//     if (eChild[i].innerText !== "") {
-//       storyArr.push(eChild[i].innerText)
-//     } else {
-//       storyArr.push(eChild[i].value)
-//     }
-//   }
+  // // Create Array to Easily Save to User's Stories
+  // let storyArr = []
+  // // forEach() cannot be used with e.target.children
+  // // innerText of <p> will not be empty but
+  // // innerText of <input> will be empty
+  // // Need to call .value on <input>
+  // for (var i = 0; i < eChild.length - 1; i++) {
+  //   if (eChild[i].innerText !== "") {
+  //     storyArr.push(eChild[i].innerText)
+  //   } else {
+  //     storyArr.push(eChild[i].value)
+  //   }
+  // }
 //   fetch(STORIES_URL,{
 //     method: 'POST',
 //     headers: {
