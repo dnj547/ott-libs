@@ -9,101 +9,128 @@ const userForm = document.querySelector('#user-form')
 const signIn = document.querySelector('#signin')
 const userName = document.querySelector('#uname')
 const userRecaps = document.querySelector('#user-recaps')
-const newGameBtn = document.querySelector('#new-game-btn')
-const template1 = document.querySelector('#template-1')
-const temp1Form = document.querySelector('#temp1-form')
+const newGameBtn = document.querySelector('.new-game-btn')
+const levelCounter = document.querySelector('#level-counter')
+let levels = 1
+let recapView = false
 
-// Initial Page View
-template1.style.display = 'none'
-
-// Create New User or Show Old User's Recaps
-userForm.addEventListener('submit',e=>{
-  e.preventDefault()
-  fetch(USERS_URL)
-  .then(r=>r.json())
-  .then(users=>{
-    let user = users.find(user => user.name === userName.value)
-    if (user) {
-      userRecaps.innerHTML +=`
-      <h1>${user.name}</h1>`
-      for (var i = user.stories.length; i > 0; i--) {
-        const fullStory = []
-        user.stories.forEach(story=>{
-          if (story.recap == i) {
-            fullStory.push(story.full_story)
-          }
-        })
-        if (fullStory.length > 0) {
-          userRecaps.innerHTML +=`
-          <label>${i} - Recap</label>
-          <p>${fullStory.join(" ")}</p>
-          <input type="submit" name=${i} accessKey=${user.id} value="Continue"/>
-          <br>
-          <br>
-          `
-        }
+frontPage.addEventListener('click',e=>{
+  console.log(e.target.name);
+  switch (e.target.name) {
+    case "signin":
+      userFunc()
+      debugger
+      userForm.style.display = 'none'
+      newGameBtn.style.display = ''
+      break;
+    case "viewRecap":
+      let show = document.querySelector(`#full-recap${e.target.id}`)
+      recapView = !recapView
+      if (recapView) {
+        show.style.display = ''
+      } else {
+        show.style.display = 'none'
       }
-      let recapNum = parseInt(userRecaps.children[1].innerText)
-      recapNum++
-      newGameBtn.name = recapNum
-      newGameBtn.accessKey = user.id
-      console.log(newGameBtn);
-    } else {
-      newUser()
-    }
-    userForm.style.display = 'none'
-  })
+      break;
+    case "new-game":
+
+      break;
+    default:
+
+  }
 })
 
 // Start Game
-userRecaps.addEventListener('click', e=>{
+newGameBtn.addEventListener('click', e=>{
   let userId = parseInt(e.target.accessKey)
   let saveSlot = parseInt(e.target.attributes[1].value)
-  const input = document.createElement('input')
-  input.type = 'submit'
-  input.accessKey = userId
-  input.name = saveSlot
   userForm.style.display = 'none'
   userRecaps.style.display = 'none'
-  template1.style.display = ''
-  temp1Form.appendChild(input)
+  newGameBtn.style.display = 'none'
+  document.querySelector(`#template-${levels}`).style.display = ''
+  document.querySelector(`#temp${levels}-form`).accessKey = userId
+  document.querySelector(`#temp${levels}-form`).id = saveSlot
+  levelCounter.style.display = ''
   // debugger
+})
+
+levelCounter.addEventListener('click',e=>{
+
 })
 
 // Save Answers to User's Stories
-temp1Form.addEventListener('submit',e=>{
-  let eChild = e.target.children
-  e.preventDefault()
-  temp1Form.style.color = "black"
-  // Create Array to Easily Save to User's Stories
-  let storyArr = []
-  // forEach() cannot be used with e.target.children
-  // innerText of <p> will not be empty but
-  // innerText of <input> will be empty
-  // Need to call .value on <input>
-  for (var i = 0; i < eChild.length - 1; i++) {
-    if (eChild[i].innerText !== "") {
-      storyArr.push(eChild[i].innerText)
-    } else {
-      storyArr.push(eChild[i].value)
-    }
-  }
-  // debugger
-  fetch(STORIES_URL,{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      'user_id': e.target.lastChild.accessKey,
-      'full_story': storyArr.join(" "),
-      'recap': e.target.lastChild.name
-    })
-  })
-})
+// temp1Form.addEventListener('submit',e=>{
+//   let eChild = e.target.children
+//   e.preventDefault()
+//   temp1Form.style.color = "black"
+//   // Create Array to Easily Save to User's Stories
+//   let storyArr = []
+//   // forEach() cannot be used with e.target.children
+//   // innerText of <p> will not be empty but
+//   // innerText of <input> will be empty
+//   // Need to call .value on <input>
+//   for (var i = 0; i < eChild.length - 1; i++) {
+//     if (eChild[i].innerText !== "") {
+//       storyArr.push(eChild[i].innerText)
+//     } else {
+//       storyArr.push(eChild[i].value)
+//     }
+//   }
+//   fetch(STORIES_URL,{
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       'user_id': e.target.lastChild.accessKey,
+//       'full_story': storyArr.join(" "),
+//       'recap': e.target.lastChild.name
+//     })
+//   })
+// })
 
 // HELPER FETCHES
+// Create New User or Show Old User's Recaps
+function userFunc() {
+  userForm.addEventListener('submit',e=>{
+    e.preventDefault()
+    fetch(USERS_URL)
+    .then(r=>r.json())
+    .then(users=>{
+      let user = users.find(user => user.name === userName.value)
+      if (user) {
+        userRecaps.innerHTML +=`
+        <h1>${user.name}</h1>`
+        for (var i = user.stories.length; i > 0; i--) {
+          const fullStory = []
+          user.stories.forEach(story=>{
+            if (story.recap == i) {
+              fullStory.push(story.full_story)
+            }
+          })
+          if (fullStory.length > 0) {
+            userRecaps.innerHTML +=`
+            <label>${i} - Recap</label>
+            <p style="display:none;" id="full-recap${i}">${fullStory.join(" ")}</p>
+            <input type="submit" name="viewRecap" id=${i} accessKey=${user.id} value="View"/>
+            <br>
+            <br>
+            `
+          }
+        }
+        let recapNum = parseInt(userRecaps.children[1].innerText)
+        recapNum++
+        newGameBtn.name = recapNum
+        newGameBtn.accessKey = user.id
+        console.log(newGameBtn);
+      } else {
+        newUser()
+      }
+    })
+  })
+}
+
 function newUser() {
   fetch(USERS_URL,{
     method: "POST",

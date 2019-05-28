@@ -5,22 +5,44 @@
     <title></title>
   </head>
   <body id="front-page">
+
     <form id="user-form">
       <input type="text" id="uname" value=""/>
-      <input type="submit" id="signin" value="Sign In" />
+      <input type="submit" name="signin" id="signin" value="Sign In" />
     </form>
-    <button type="button" name="" accessKey="" id="new-game-btn">New Game</button>
-    <div class="save-slot-containers" id="user-recaps">
 
+    <button style="display:none" type="button" name="new-game" id="" accessKey="" class="new-game-btn">New Game</button>
+
+    <div class="recap-containers" id="user-recaps">
     </div>
 
-    <div id="template-1">
-      <form method="post" id="temp1-form" style="color:white">
-        <p>blah blah whatever</p>
-        <input type="text" placeholder="noun" value="">
-        <p>this is after input</p>
-      </form>
+    <div id="game-play">
+      <div id="template-1" style="display:none;">
+        <li>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.</li>
+        <li>But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!</li>
+        <li>They spend most of their time at the zoo at the otter exhibit. They’re kind of obsessive actually. But you and your otter friends love the attention.</li>
+        <li>You finally feel like the otters are the star of the show, as you should be! But then the people start to say goodbye.</li>
+        <li>They say they have to go back to school. You’re so sad that they’re leaving. You want them to adopt you and your otter friends.</li>
+        <li>You wish you could just go with them back to…</li>
+        <li>Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?</li>
+        <li>Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!</li>
+        <li>You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</li>
+        <form id="temp1-form" method="get">
+          <input type="submit" name="submit-level" accessKey="" id="" value="Submit" style="display:none;">
+        </form>
+      </div>
+
+      <div id="template-2" style="display:none;">
+        <form method="post" id="temp2-form" style="color:white">
+          <p>blah blah whatever</p>
+          <input type="text" placeholder="noun" value="">
+          <p>this is after input</p>
+          <input type="submit" name="submit-level" accessKey="" id="" value="Submit">
+        </form>
+      </div>
     </div>
+
+    <button type="button" id="level-counter" name="counter">Continue</button>
 
   </body>
   <script src="./src/index.js"></script>

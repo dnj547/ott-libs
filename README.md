@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Step 1 - Login with Name
+Step 2 - See Recaps, View Recaps, Start New Game
+Step 3 New Game - View Intro
+  Press Continue
+  Intro hides, Level 1 shows
