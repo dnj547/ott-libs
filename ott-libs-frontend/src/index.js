@@ -19,7 +19,6 @@ frontPage.addEventListener('click',e=>{
   switch (e.target.name) {
     case "signin":
       userFunc()
-      debugger
       userForm.style.display = 'none'
       newGameBtn.style.display = ''
       break;
@@ -33,29 +32,24 @@ frontPage.addEventListener('click',e=>{
       }
       break;
     case "new-game":
-
+      let userId = parseInt(e.target.accessKey)
+      let saveSlot = parseInt(e.target.attributes[1].value)
+      userForm.style.display = 'none'
+      userRecaps.style.display = 'none'
+      newGameBtn.style.display = 'none'
+      document.querySelector(`#template-${levels}`).style.display = ''
+      document.querySelector(`#temp${levels}-form`).accessKey = userId
+      document.querySelector(`#temp${levels}-form`).id = saveSlot
+      levelCounter.style.display = ''
+      break;
+    case "level":
+      document.querySelector(`#template-${levels}`).style.display = 'none'
+      levels++
+      document.querySelector(`#template-${levels}`).style.display = ''
       break;
     default:
 
   }
-})
-
-// Start Game
-newGameBtn.addEventListener('click', e=>{
-  let userId = parseInt(e.target.accessKey)
-  let saveSlot = parseInt(e.target.attributes[1].value)
-  userForm.style.display = 'none'
-  userRecaps.style.display = 'none'
-  newGameBtn.style.display = 'none'
-  document.querySelector(`#template-${levels}`).style.display = ''
-  document.querySelector(`#temp${levels}-form`).accessKey = userId
-  document.querySelector(`#temp${levels}-form`).id = saveSlot
-  levelCounter.style.display = ''
-  // debugger
-})
-
-levelCounter.addEventListener('click',e=>{
-
 })
 
 // Save Answers to User's Stories
@@ -121,7 +115,7 @@ function userFunc() {
         }
         let recapNum = parseInt(userRecaps.children[1].innerText)
         recapNum++
-        newGameBtn.name = recapNum
+        newGameBtn.id = recapNum
         newGameBtn.accessKey = user.id
         console.log(newGameBtn);
       } else {
@@ -142,7 +136,4 @@ function newUser() {
       'name': userName.value
     })
   })
-  userRecaps.innerHTML +=`
-  <input type="submit" name=1 value="New Game"/>
-  `
 }
