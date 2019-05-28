@@ -1,2 +1,0 @@
-class RecapsController < ApplicationController
-end

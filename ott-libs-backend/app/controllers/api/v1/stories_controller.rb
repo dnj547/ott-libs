@@ -5,7 +5,7 @@ class Api::V1::StoriesController < ApplicationController
   end
 
   def create
-    byebug
+    Story.create(full_story: params[:full_story], user_id: params[:user_id], recap: params[:recap])
   end
 
   def show

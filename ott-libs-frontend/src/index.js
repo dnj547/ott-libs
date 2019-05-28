@@ -11,10 +11,9 @@ const userName = document.querySelector('#uname')
 const userRecaps = document.querySelector('#user-recaps')
 const template1 = document.querySelector('#template-1')
 const temp1Form = document.querySelector('#temp1-form')
-const playGame = document.querySelector('#play-game')
+
 // Initial Page View
 template1.style.display = 'none'
-playGame.style.display = 'none'
 
 // Create New User or Show Old User's Recaps
 userForm.addEventListener('submit',e=>{
@@ -25,28 +24,55 @@ userForm.addEventListener('submit',e=>{
     let user = users.find(user => user.name === userName.value)
     if (user) {
       userRecaps.innerHTML +=`
-      <h5>Save Slot 1</h5>
-        <p>${user.stories.map(story=>{
-          if (story.recap_id == 1) {
-            return story.full_story
-          } else {
-            return "blah"
+      <h1>${user.name}</h1>`
+      for (var i = 1; i < 4; i++) {
+        const fullStory = []
+        user.stories.forEach(story=>{
+          if (story.recap == i) {
+            fullStory.push(story.full_story)
           }
-        })}</p>
-      `
+        })
+        if (fullStory.length > 0) {
+          userRecaps.innerHTML +=`
+          <label>Save Slot ${i}</label>
+          <p>${fullStory.join(" ")}</p>
+          <input type="submit" data-save-id=${i} accessKey=${user.id} value="Continue"/>
+          <input type="submit" data-save-id=${i} accessKey=${user.id} value="New Game"/>
+          <br>
+          <br>
+          `
+        } else {
+          userRecaps.innerHTML +=`
+          <label>Save Slot ${i}</label>
+          <input type="submit" data-save-id=${i} accessKey=${user.id} value="New Game"/>
+          <br>
+          <br>
+          `
+        }
+      }
     } else {
       newUser()
     }
-    playGame.style.display = ''
+    userForm.style.display = 'none'
   })
 })
+
 // Start Game
-playGame.addEventListener('click', e=>{
-  userName.style.display = 'none'
-  playGame.style.display = 'none'
-  signIn.style.display = 'none'
+userRecaps.addEventListener('click', e=>{
+  let userId = parseInt(e.target.accessKey)
+  let saveSlot = parseInt(e.target.attributes[1].value)
+  const tempSubmit = `<input type="submit" accessKey=${userId} name=${saveSlot} />`
+  const input = document.createElement('input')
+  input.type = 'submit'
+  input.accessKey = userId
+  input.name = saveSlot
+  userForm.style.display = 'none'
+  userRecaps.style.display = 'none'
   template1.style.display = ''
+  temp1Form.appendChild(input)
+  // debugger
 })
+
 // Save Answers to User's Stories
 temp1Form.addEventListener('submit',e=>{
   let eChild = e.target.children
@@ -65,6 +91,7 @@ temp1Form.addEventListener('submit',e=>{
       storyArr.push(eChild[i].value)
     }
   }
+  // debugger
   fetch(STORIES_URL,{
     method: 'POST',
     headers: {
@@ -72,7 +99,9 @@ temp1Form.addEventListener('submit',e=>{
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      'full_story': storyArr.join(" ")
+      'user_id': e.target.lastChild.accessKey,
+      'full_story': storyArr.join(" "),
+      'recap': e.target.lastChild.name
     })
   })
 })
@@ -101,5 +130,7 @@ function newUser() {
       'name': userName.value
     })
   })
-  playGame.style.display = ''
+  userRecaps.innerHTML +=`
+  <input type="submit" data-save-id=1 value="New Game"/>
+  `
 }

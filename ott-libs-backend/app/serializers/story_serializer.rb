@@ -1,5 +1,4 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :full_story, :user_id, :recap_id
+  attributes :id, :full_story, :user_id, :recap
   belongs_to :user
-  belongs_to :recap
 end
