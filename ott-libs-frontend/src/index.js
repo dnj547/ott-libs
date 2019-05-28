@@ -47,6 +47,11 @@ frontPage.addEventListener('click',e=>{
       levels++
       document.querySelector(`#template-${levels}`).style.display = ''
       break;
+    case "submit-level":
+      e.preventDefault()
+      document.querySelector(`#temp${levels}-form`).style.color = 'black'
+      debugger
+      break;
     default:
 
   }
