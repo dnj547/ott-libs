@@ -9,7 +9,9 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
+ott-libs-backend/log/*
 /tmp/*
+ott-libs-backend/tmp/*
 !/log/.keep
 !/tmp/.keep
 
