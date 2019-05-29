@@ -11,37 +11,54 @@
       <input type="submit" name="signin" id="signin" value="Sign In" />
     </form>
 
-    <button style="display:none" type="button" name="new-game" id="" accessKey="" class="new-game-btn">New Game</button>
+    <button style="display:none" type="button" name="new-game" id="" accessKey="" class="submit-level-words">New Game</button>
 
     <div class="recap-containers" id="user-recaps">
     </div>
 
     <div id="game-play">
       <div id="template-1" style="display:none;">
-        <li>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.</li>
-        <li>But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!</li>
-        <li>They spend most of their time at the zoo at the otter exhibit. They’re kind of obsessive actually. But you and your otter friends love the attention.</li>
-        <li>You finally feel like the otters are the star of the show, as you should be! But then the people start to say goodbye.</li>
-        <li>They say they have to go back to school. You’re so sad that they’re leaving. You want them to adopt you and your otter friends.</li>
-        <li>You wish you could just go with them back to…</li>
-        <li>Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?</li>
-        <li>Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!</li>
-        <li>You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</li>
+        <ul style="list-style-type:none;">
+          <li>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.</li>
+          <li>But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!</li>
+          <li>They spend most of their time at the zoo at the otter exhibit. They’re kind of obsessive actually. But you and your otter friends love the attention.</li>
+          <li>You finally feel like the otters are the star of the show, as you should be! But then the people start to say goodbye.</li>
+          <li>They say they have to go back to school. You’re so sad that they’re leaving. You want them to adopt you and your otter friends.</li>
+          <li>You wish you could just go with them back to…</li>
+          <li>Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?</li>
+          <li>Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!</li>
+          <li>You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</li>
+        </ul>
         <form id="temp1-form" method="get">
-          <input type="submit" name="submit-level" accessKey="" id="" value="Submit" style="display:none;">
+          <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit" style="display:none;">
         </form>
       </div>
 
       <div id="template-2" style="display:none;">
         <form method="post" id="temp2-form" style="color:white">
-          <p>You wait until night time when the zookeepers are away</p>
-          <input type="text" placeholder="Verb Ending in 'ing'" value="">
-          <input type="submit" name="submit-level" accessKey="" id="" value="Submit">
+
+          <p style="display:none">You wait until night time when the zookeepers are away <span accessKey="Verb Ending in 'ing'"></span>.
+          You climb up a <span accessKey="Noun - Something Large"></span>
+          and you get halfway to the top when out of nowhere a wave of <span accessKey="Plural Noun"></span>
+          crash down on you knocking you to the ground! But that doesn’t stop you. You get right back up again. Your friends <span accessKey="Verb"></span> together to help you get up so close to the top you can see the <span accessKey="Color"></span> sky! But then, a motion sensing <span accessKey="Noun"></span> turns on, and you are in the spotlight. You suddenly hear <span accessKey="Name"></span> the <span accessKey="Animal"></span> scream “<span accessKey="Outraged Expression"></span>” nearby. It startles you, and you almost fall off of the <span accessKey="Same Noun - Large"></span>! Your otter friends are staring up at you in anticipation. Will you make it out alive? Are the zookeepers on their way? Will you ever get to Flatiron School?? Will you be stuck here in the zoo forever???</p>
+
+          <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit"/>
         </form>
+        <div style="display:none" id="pass-level2">
+          <p>You got to the top of the cage! But, there’s no way out. How did you never notice that the cage has a <span style="color:blue;" accessKey="Color"></span> roof??
+          You’re disappointed, but you’re proud of yourself. You made it to the top. You can do this. You’re determined to find a way to your Flatiron friends.</p>
+        </div>
+        <div style="display:none;" id='fail-level2'>
+          <p>Oh no! The zookeepers came and saw you trying to escape. They picked you up and put you back down on the ground with your otter friends.</p>
+        </div>
       </div>
     </div>
 
-    <button style="display:none;" type="button" id="level-counter" name="level">Continue</button>
+    <br>
+
+    <button style="display:none;" type="button" accessKey="" id="" name="level-counter">Continue</button>
+
+    <button style="display:none;" type="button" accessKey="" id="" name="retry-level">Retry</button>
 
   </body>
   <script src="./src/index.js"></script>

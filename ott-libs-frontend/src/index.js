@@ -4,110 +4,137 @@ STORIES_URL = "http://localhost:3000/api/v1/stories"
 TEMPLATES_URL = "http://localhost:3000/api/v1/templates"
 RECAPS_URL = "http://localhost:3000/api/v1/recaps"
 // HTML Variable
+const answers = {
+  2: ['sleeping','','partying', 'gate', 'tree', 'wall', 'otters'],
+  3: [],
+  4: [],
+  5: []
+}
 const frontPage = document.querySelector('#front-page')
 const userForm = document.querySelector('#user-form')
 const signIn = document.querySelector('#signin')
 const userName = document.querySelector('#uname')
 const userRecaps = document.querySelector('#user-recaps')
-const newGameBtn = document.querySelector('.new-game-btn')
-const levelCounter = document.querySelector('#level-counter')
+const newGameBtn = document.getElementsByName('new-game')
+const levelCounter = document.getElementsByName('level-counter')
+const retryLevel = document.getElementsByName('retry-level')
+const submitLevelWords = document.querySelectorAll('.submit-level-words')
 let levels = 1
 let recapView = false
+
 
 frontPage.addEventListener('click',e=>{
   console.log(e.target.name);
   switch (e.target.name) {
+    // SIGN IN
     case "signin":
       userFunc()
       userForm.style.display = 'none'
-      newGameBtn.style.display = ''
+      newGameBtn[0].style.display = ''
       break;
+    // VIEW / HIDE RECAPS
     case "viewRecap":
       let show = document.querySelector(`#full-recap${e.target.id}`)
       recapView = !recapView
       if (recapView) {
         show.style.display = ''
+        e.target.value = 'Hide'
       } else {
         show.style.display = 'none'
+        e.target.value = 'View'
       }
       break;
+    // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
-      let userId = parseInt(e.target.accessKey)
-      let saveSlot = parseInt(e.target.attributes[1].value)
       userForm.style.display = 'none'
       userRecaps.style.display = 'none'
-      newGameBtn.style.display = 'none'
+      newGameBtn[0].style.display = 'none'
       document.querySelector(`#template-${levels}`).style.display = ''
-      document.querySelector(`#temp${levels}-form`).accessKey = userId
-      document.querySelector(`#temp${levels}-form`).id = saveSlot
-      levelCounter.style.display = ''
+      levelCounter[0].style.display = ''
       break;
-    case "level":
+    // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
+    case "level-counter":
       document.querySelector(`#template-${levels}`).style.display = 'none'
+      levelCounter[0].style.display = 'none'
       levels++
-      document.querySelector(`#template-${levels}`).style.display = ''
+      showLevel()
       break;
+    // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
       let eChild = e.target.parentElement.children
+      var spans = eChild[0].children
       e.preventDefault()
-      document.querySelector(`#temp${levels}-form`).style.color = 'black'
-      debugger
+      var temp = document.querySelector(`#temp${levels}-form`)
+      temp.style.color = 'black'
       // Create Array to Easily Save to User's Stories
       let storyArr = []
-      // forEach() cannot be used with e.target.parent
-      // innerText of <p> will not be empty but
-      // innerText of <input> will be empty
-      // Need to call .value on <input>
-      for (var i = 0; i < eChild.length - 1; i++) {
-        if (eChild[i].innerText !== "") {
-          storyArr.push(eChild[i].innerText)
-        } else {
-          storyArr.push(eChild[i].value)
+      let failScore = 0
+      for (var i=0; i < spans.length; i++) {
+        if (answers[levels].includes(eChild[i].value)) {
+          failScore++
         }
+        spans[i].innerText = `<b style="color: blue;">${document.querySelector(`#span${i+1}`).value}</b>`
       }
+      storyArr.push(eChild[0].innerText)
       e.target.parentElement.innerHTML = `
-      <p>${storyArr.join(" ")}</p>
+      ${storyArr.join(" ")}
       `
+      if (failScore == 0) {
+        const passSpan = document.querySelector(`#pass-level${levels}`)
+        levelCounter[0].style.display = ''
+        passSpan.style.display = ''
+        // Story Variables
+        const lvl2Color = eChild[4].innerText
+        const lvl2FillSpan = passSpan.children[0].children[0]
+        lvl2FillSpan.innerText = lvl2Color
+        // Save Answers to User's Stories
+        fetch(STORIES_URL,{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            'user_id': e.target.accessKey,
+            'full_story': storyArr.join(" "),
+            'recap': e.target.id
+          })
+        })
+      } else {
+        const failSpan = document.querySelector(`#fail-level${levels}`)
+        failSpan.style.display = ''
+        retryLevel[0].style.display = ''
+      }
+      break;
+    // RETRY FAILED LEVEL
+    case 'retry-level':
+      var temp = document.querySelector(`#template-${levels}`)
+      var tempKids = temp.firstElementChild.children
+      for (var i = 0; i < tempKids.length; i++) {
+        tempKids[i].innerText = ""
+      }
+      showLevel()
       break;
     default:
-
   }
 })
 
-// Save Answers to User's Stories
-// temp1Form.addEventListener('submit',e=>{
-  // let eChild = e.target.parent
-//   e.preventDefault()
-//   temp1Form.style.color = "black"
-  // // Create Array to Easily Save to User's Stories
-  // let storyArr = []
-  // // forEach() cannot be used with e.target.children
-  // // innerText of <p> will not be empty but
-  // // innerText of <input> will be empty
-  // // Need to call .value on <input>
-  // for (var i = 0; i < eChild.length - 1; i++) {
-  //   if (eChild[i].innerText !== "") {
-  //     storyArr.push(eChild[i].innerText)
-  //   } else {
-  //     storyArr.push(eChild[i].value)
-  //   }
-  // }
-//   fetch(STORIES_URL,{
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       'user_id': e.target.lastChild.accessKey,
-//       'full_story': storyArr.join(" "),
-//       'recap': e.target.lastChild.name
-//     })
-//   })
-// })
-
 // HELPER FETCHES
 // Create New User or Show Old User's Recaps
+function showLevel() {
+  var temp = document.querySelector(`#template-${levels}`)
+  temp.style.display = ''
+  let mySpans = temp.firstElementChild.firstElementChild.children
+  for (var i = 0; i < mySpans.length; i++) {
+    let spanner = temp.firstElementChild
+    let x = document.createElement('input')
+    x.type = 'text'
+    x.id = `span${i+1}`
+    x.placeholder = mySpans[i].accessKey
+    spanner.append(x)
+  }
+}
+
 function userFunc() {
   userForm.addEventListener('submit',e=>{
     e.preventDefault()
@@ -128,7 +155,7 @@ function userFunc() {
           if (fullStory.length > 0) {
             userRecaps.innerHTML +=`
             <label>${i} - Recap</label>
-            <p style="display:none;" id="full-recap${i}">${fullStory.join(" ")}</p>
+            <ul style="display:none;" id="full-recap${i}">${fullStory.join(" ")}</ul>
             <input type="submit" name="viewRecap" id=${i} accessKey=${user.id} value="View"/>
             <br>
             <br>
@@ -137,9 +164,10 @@ function userFunc() {
         }
         let recapNum = parseInt(userRecaps.children[1].innerText)
         recapNum++
-        newGameBtn.id = recapNum
-        newGameBtn.accessKey = user.id
-        console.log(newGameBtn);
+        submitLevelWords.forEach(btn=>{
+          btn.id = recapNum
+          btn.accessKey = user.id
+        })
       } else {
         newUser()
       }
