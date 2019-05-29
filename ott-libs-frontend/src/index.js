@@ -48,7 +48,7 @@ frontPage.addEventListener('click',e=>{
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
-      userForm.style.display = 'none'
+      // userForm.style.display = 'none'
       userRecaps.style.display = 'none'
       newGameBtn[0].style.display = 'none'
       document.querySelector(`#template-${levels}`).style.display = ''
@@ -67,7 +67,7 @@ frontPage.addEventListener('click',e=>{
       var spans = eChild[0].children
       e.preventDefault()
       var temp = document.querySelector(`#temp${levels}-form`)
-      temp.style.color = 'black'
+      temp.style.display = 'none'
       // Create Array to Easily Save to User's Stories
       let storyArr = []
       let failScore = 0
@@ -77,6 +77,7 @@ frontPage.addEventListener('click',e=>{
         }
         spans[i].innerText = `${document.querySelector(`#span${i+1}`).value}`
       }
+      // debugger
       storyArr.push(eChild[0].innerText)
       // e.target.parentElement.innerHTML = `
       // ${storyArr.join(" ")}
