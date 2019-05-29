@@ -64,10 +64,12 @@ frontPage.addEventListener('click',e=>{
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
       let eChild = e.target.parentElement.children
-      var spans = eChild[0].children
+      let eStory = e.target.parentElement.nextElementSibling
+      var spans = eStory.children[0].children
       e.preventDefault()
       var temp = document.querySelector(`#temp${levels}-form`)
       temp.style.display = 'none'
+      // debugger
       // Create Array to Easily Save to User's Stories
       let storyArr = []
       let failScore = 0
@@ -75,10 +77,11 @@ frontPage.addEventListener('click',e=>{
         if (answers[levels].includes(eChild[i].value)) {
           failScore++
         }
-        spans[i].innerText = `${document.querySelector(`#span${i+1}`).value}`
+        spans[i].innerText = eChild[`span${i+1}`].value
+        // debugger
       }
       // debugger
-      storyArr.push(eChild[0].innerText)
+      storyArr.push(eStory.children[0].innerText)
       // e.target.parentElement.innerHTML = `
       // ${storyArr.join(" ")}
       // `
@@ -86,11 +89,11 @@ frontPage.addEventListener('click',e=>{
         const passSpan = document.querySelector(`#pass-level${levels}`)
         levelCounter[0].style.display = ''
         // debugger
-        passSpan.prepend(e.target.parentElement.firstElementChild.innerText)
+        eStory.style.display = ''
         passSpan.style.display = ''
         // Story Variables
-        const lvl2Color = eChild[6].value
-        const lvl2FillSpan = e.target.parentElement.nextElementSibling.children[0].children[0]
+        const lvl2Color = eStory.children[0].children[4].innerText
+        const lvl2FillSpan = passSpan.children[0].children[0]
         lvl2FillSpan.innerText = lvl2Color
         // debugger
         // Save Answers to User's Stories
@@ -107,6 +110,7 @@ frontPage.addEventListener('click',e=>{
           })
         })
       } else {
+        eStory.style.display = ''
         const failSpan = document.querySelector(`#fail-level${levels}`)
         failSpan.style.display = ''
         retryLevel[0].style.display = ''
@@ -114,9 +118,11 @@ frontPage.addEventListener('click',e=>{
       break;
     // RETRY FAILED LEVEL
     case 'retry-level':
-    debugger
-      e.target.parentElement.innerHTML = ''
-      showLevel()
+      e.target.style.display = 'none'
+      temp = e.target.parentElement
+      temp.children[`temp${levels}-form`].style.display = ''
+      temp.children[`temp${levels}-story`].style.display = 'none'
+      temp.children[`fail-level${levels}`].style.display = 'none'
       break;
     default:
   }
@@ -127,7 +133,8 @@ frontPage.addEventListener('click',e=>{
 function showLevel() {
   var temp = document.querySelector(`#template-${levels}`)
   temp.style.display = ''
-  let mySpans = temp.firstElementChild.firstElementChild.children
+  let mySpans = temp.children[`temp${levels}-story`].children[0].children
+  // debugger
   for (var i = 0; i < mySpans.length; i++) {
     let spanner = temp.firstElementChild
     let x = document.createElement('input')
