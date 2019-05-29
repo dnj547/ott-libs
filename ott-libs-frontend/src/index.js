@@ -13,7 +13,7 @@ const answers = {
 
 // HTML Variable
 const frontPage = document.querySelector("#front-page");
-const userForm = document.querySelector("#ott-libs-container");
+const welcomeOttLibsCont = document.querySelector("#welcome-ott-libs-container");
 const signIn = document.querySelector("#signin");
 const userName = document.querySelector("#uname");
 const userRecaps = document.querySelector("#user-recaps");
@@ -21,10 +21,11 @@ const newGameBtn = document.getElementsByName("new-game");
 const levelCounter = document.getElementsByName("level-counter");
 const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
-const smallerCont = document.querySelector("#smaller-ott-libs-container");
-const gamePlayDiv = document.querySelector("#game-play");
+const ottLibsCont = document.querySelector("#ott-libs-container");
+
 let levels = 1;
 let recapView = false;
+
 
 frontPage.addEventListener("click", e => {
   console.log(e.target.name);
@@ -32,8 +33,8 @@ frontPage.addEventListener("click", e => {
     // SIGN IN
     case "signin":
       userFunc();
-      userForm.style.display = "none";
-      smallerCont.style.display = "";
+      welcomeOttLibsCont.style.display = "none";
+      ottLibsCont.style.display = "";
       newGameBtn[0].style.display = "";
       break;
     // VIEW RECAPS
@@ -56,6 +57,7 @@ frontPage.addEventListener("click", e => {
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
       gamePlayDiv.style.display = "";
+
       document.querySelector(`#template-${levels}`).style.display = "";
       levelCounter[0].style.display = "";
       break;
@@ -150,7 +152,7 @@ function showLevel() {
 }
 
 function userFunc() {
-  userForm.addEventListener("submit", e => {
+  welcomeOttLibsCont.addEventListener("submit", e => {
     e.preventDefault();
     fetch(USERS_URL)
       .then(r => r.json())

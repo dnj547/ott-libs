@@ -16,7 +16,7 @@
 
   <body>
     <div id="front-page" class="container-fluid">
-      <div class="container" id="ott-libs-container">
+      <div class="container" id="welcome-ott-libs-container">
         <div class="jumbotron">
           <img src="./images/ott-libs-logo.png" width="450" height="175" alt="Ott Libs Logo" />
           <p>Like Mad Libs but with otters</p>
@@ -29,7 +29,7 @@
         </div>
       </div> <!-- End ott-libs-container -->
 
-      <div style="display:none" class="container" id="smaller-ott-libs-container">
+      <div style="display:none" class="container" id="ott-libs-container">
         <div class="jumbotron">
           <img src="./images/ott-libs-logo.png" width="225" height="87.5" alt="Ott Libs Logo">
           <br>
@@ -40,21 +40,22 @@
           <div class="recap-containers" id="user-recaps">
           </div>
 
-          <div id="game-play" style="display:none;" class="jumbotron">
-            <div id="template-1" style="display:none;" class="container">
-              <p>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.</p>
-              <p>But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!</p>
-              <p>They spend most of their time at the zoo at the otter exhibit. They’re kind of obsessive actually. But you and your otter friends love the attention.</p>
-              <p>You finally feel like the otters are the star of the show, as you should be! But then the people start to say goodbye.</p>
-              <p>They say they have to go back to school. You’re so sad that they’re leaving. You want them to adopt you and your otter friends.</p>
-              <p>You wish you could just go with them back to…</p>
-              <p>Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?</p>
-              <p>Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!</p>
-              <p>You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</p>
+          <div id="game-play" class="jumbotron">
+            <div id="template-1" class="container">
+              <p>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.
+              But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!
+              They spend most of their time at the zoo at the otter exhibit. They’re kind of obsessive actually. But you and your otter friends love the attention.
+              You finally feel like the otters are the star of the show, as you should be! But then the people start to say goodbye.
+              They say they have to go back to school. You’re so sad that they’re leaving. You want them to adopt you and your otter friends.
+              You wish you could just go with them back to…
+              Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?
+              Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!
+              You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</p>
+            </div>
 
-              <form id="temp1-form" method="get">
-                <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit" style="display:none;">
-              </form>
+            <form id="temp1-form" method="get">
+              <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit" style="display:none;">
+            </form>
 
             </div> <!-- End template-1 -->
 
@@ -86,7 +87,7 @@
             </div> <!-- End template-2 -->
 
             <button style="display:none;" type="button" accessKey="" id="" name="level-counter">Continue</button>
-            
+
           </div> <!-- End game-play -->
         </div><!-- End jumbotron -->
       </div><!-- End smaller-ott-libs-container -->
@@ -100,6 +101,6 @@
   </body>
 
   <script src="./src/index.js"></script>
-  <script src="faker.js" type="text/javascript"></script>
+  <!-- <script src="faker.js" type="text/javascript"></script> -->
 
 </html>
