@@ -3,30 +3,15 @@ USERS_URL = "http://localhost:3000/api/v1/users";
 STORIES_URL = "http://localhost:3000/api/v1/stories";
 TEMPLATES_URL = "http://localhost:3000/api/v1/templates";
 RECAPS_URL = "http://localhost:3000/api/v1/recaps";
-// HTML Variable
+
 const answers = {
   2: ["sleeping", "", "partying", "gate", "tree", "wall", "otters"],
   3: [],
   4: [],
   5: []
-}
-const frontPage = document.querySelector('#front-page')
-const userForm = document.querySelector('#ott-libs-container')
-const signIn = document.querySelector('#signin')
-const userName = document.querySelector('#uname')
-const userRecaps = document.querySelector('#user-recaps')
-const newGameBtn = document.getElementsByName('new-game')
-const levelCounter = document.getElementsByName('level-counter')
-const retryLevel = document.getElementsByName('retry-level')
-const submitLevelWords = document.querySelectorAll('.submit-level-words')
-const smallerCont = document.querySelector('#smaller-ott-libs-container')
-const gamePlayDiv = document.querySelector('#game-play')
-
-let levels = 1
-let recapView = false
-
-frontPage.addEventListener('click',e=>{
 };
+
+// HTML Variable
 const frontPage = document.querySelector("#front-page");
 const userForm = document.querySelector("#ott-libs-container");
 const signIn = document.querySelector("#signin");
@@ -36,6 +21,8 @@ const newGameBtn = document.getElementsByName("new-game");
 const levelCounter = document.getElementsByName("level-counter");
 const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
+const smallerCont = document.querySelector("#smaller-ott-libs-container");
+const gamePlayDiv = document.querySelector("#game-play");
 let levels = 1;
 let recapView = false;
 
@@ -46,7 +33,7 @@ frontPage.addEventListener("click", e => {
     case "signin":
       userFunc();
       userForm.style.display = "none";
-      smallerCont.style.display = ''
+      smallerCont.style.display = "";
       newGameBtn[0].style.display = "";
       break;
     // VIEW RECAPS
@@ -66,11 +53,11 @@ frontPage.addEventListener("click", e => {
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
       // userForm.style.display = 'none'
-      userRecaps.style.display = 'none'
-      newGameBtn[0].style.display = 'none'
-      gamePlayDiv.style.display = ''
-      document.querySelector(`#template-${levels}`).style.display = ''
-      levelCounter[0].style.display = ''
+      userRecaps.style.display = "none";
+      newGameBtn[0].style.display = "none";
+      gamePlayDiv.style.display = "";
+      document.querySelector(`#template-${levels}`).style.display = "";
+      levelCounter[0].style.display = "";
       break;
     // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
     case "level-counter":
