@@ -2,14 +2,31 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Ott Libs</title>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="index.css">
   </head>
-  <body id="front-page">
 
-    <form id="user-form">
-      <input type="text" id="uname" value=""/>
-      <input type="submit" name="signin" id="signin" value="Sign In" />
-    </form>
+  <body>
+
+  <div id="front-page" class="container-fluid">
+    <div class="container" id="ott-libs-container">
+      <div class="jumbotron">
+        <img src="./images/ott-libs-logo.png" width="450" height="175" alt="Ott Libs Logo">
+        <p>Like Mad Libs but with otters</p>
+        <div class="container">
+          <form id="user-form">
+            <input type="text" id="uname" value=""/>
+            <input type="submit" name="signin" id="signin" value="Sign In" />
+          </form>
+        </div>
+      </div>
+    </div>
 
     <button style="display:none" type="button" name="new-game" id="" accessKey="" class="submit-level-words">New Game</button>
 
@@ -52,14 +69,17 @@
           <p>Oh no! The zookeepers came and saw you trying to escape. They picked you up and put you back down on the ground with your otter friends.</p>
           <button style="display:none;" type="button" accessKey="" id="" name="retry-level">Retry</button>
         </div>
-      </div>
-    </div>
 
-    <br>
+        <br>
 
-    <button style="display:none;" type="button" accessKey="" id="" name="level-counter">Continue</button>
+        <button style="display:none;" type="button" accessKey="" id="" name="level-counter">Continue</button>
 
 
+  </div>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </body>
-  <script src="./src/index.js"></script>
+    <script src="./src/index.js"></script>
 </html>
