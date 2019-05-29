@@ -22,6 +22,7 @@ const levelCounter = document.getElementsByName("level-counter");
 const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
+const gamePlayDiv = document.querySelector('#game-play')
 
 let levels = 1;
 let continueLevel = 0;
@@ -63,15 +64,13 @@ frontPage.addEventListener("click", e => {
       levels = document.querySelector(`#full-recap${idNum}`).childElementCount + 1;
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
-      gamePlayDiv.style.display = "";
       showLevel()
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
-      gamePlayDiv.style.display = "";
-
+      gamePlayDiv.style.display = "block";
       document.querySelector(`#template-${levels}`).style.display = "";
       levelCounter[0].style.display = "";
       break;
