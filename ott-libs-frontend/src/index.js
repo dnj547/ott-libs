@@ -19,9 +19,11 @@ const newGameBtn = document.getElementsByName('new-game')
 const levelCounter = document.getElementsByName('level-counter')
 const retryLevel = document.getElementsByName('retry-level')
 const submitLevelWords = document.querySelectorAll('.submit-level-words')
+const smallerCont = document.querySelector('#smaller-ott-libs-container')
+const gamePlayDiv = document.querySelector('#game-play')
+
 let levels = 1
 let recapView = false
-
 
 frontPage.addEventListener('click',e=>{
   console.log(e.target.name);
@@ -30,6 +32,7 @@ frontPage.addEventListener('click',e=>{
     case "signin":
       userFunc()
       userForm.style.display = 'none'
+      smallerCont.style.display = ''
       newGameBtn[0].style.display = ''
       break;
     // VIEW RECAPS
@@ -51,6 +54,7 @@ frontPage.addEventListener('click',e=>{
       // userForm.style.display = 'none'
       userRecaps.style.display = 'none'
       newGameBtn[0].style.display = 'none'
+      gamePlayDiv.style.display = ''
       document.querySelector(`#template-${levels}`).style.display = ''
       levelCounter[0].style.display = ''
       break;
