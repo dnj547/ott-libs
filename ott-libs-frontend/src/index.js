@@ -75,20 +75,23 @@ frontPage.addEventListener('click',e=>{
         if (answers[levels].includes(eChild[i].value)) {
           failScore++
         }
-        spans[i].innerText = `<b style="color: blue;">${document.querySelector(`#span${i+1}`).value}</b>`
+        spans[i].innerText = `${document.querySelector(`#span${i+1}`).value}`
       }
       storyArr.push(eChild[0].innerText)
-      e.target.parentElement.innerHTML = `
-      ${storyArr.join(" ")}
-      `
+      // e.target.parentElement.innerHTML = `
+      // ${storyArr.join(" ")}
+      // `
       if (failScore == 0) {
         const passSpan = document.querySelector(`#pass-level${levels}`)
         levelCounter[0].style.display = ''
+        // debugger
+        passSpan.prepend(e.target.parentElement.firstElementChild.innerText)
         passSpan.style.display = ''
         // Story Variables
-        const lvl2Color = eChild[4].innerText
-        const lvl2FillSpan = passSpan.children[0].children[0]
+        const lvl2Color = eChild[6].value
+        const lvl2FillSpan = e.target.parentElement.nextElementSibling.children[0].children[0]
         lvl2FillSpan.innerText = lvl2Color
+        // debugger
         // Save Answers to User's Stories
         fetch(STORIES_URL,{
           method: 'POST',
@@ -110,11 +113,7 @@ frontPage.addEventListener('click',e=>{
       break;
     // RETRY FAILED LEVEL
     case 'retry-level':
-      var temp = document.querySelector(`#template-${levels}`)
-      var tempKids = temp.firstElementChild.children
-      for (var i = 0; i < tempKids.length; i++) {
-        tempKids[i].innerText = ""
-      }
+    debugger
       e.target.parentElement.innerHTML = ''
       showLevel()
       break;
