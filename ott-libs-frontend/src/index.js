@@ -124,9 +124,9 @@ frontPage.addEventListener("click", e => {
     // RETRY FAILED LEVEL
     case "retry-level":
       e.target.style.display = "none";
-      document.querySelector(`temp${levels}-form`).style.display = "";
-      document.querySelector(`temp${levels}-story`).style.display = "none";
-      document.querySelector(`fail-level${levels}`).style.display = "none";
+      document.querySelector(`#temp${levels}-form`).style.display = "";
+      document.querySelector(`#temp${levels}-story`).style.display = "none";
+      document.querySelector(`#fail-level${levels}`).style.display = "none";
       break;
     default:
   }
