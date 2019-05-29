@@ -69,7 +69,7 @@ frontPage.addEventListener("click", e => {
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
       let eChild = e.target.parentElement.children;
-      let eStory = e.target.parentElement.nextElementSibling;
+      let eStory = document.querySelector(`#temp${levels}-story`);
       var spans = eStory.children[0].children;
       e.preventDefault();
       var temp = document.querySelector(`#temp${levels}-form`);
@@ -124,10 +124,9 @@ frontPage.addEventListener("click", e => {
     // RETRY FAILED LEVEL
     case "retry-level":
       e.target.style.display = "none";
-      temp = e.target.parentElement;
-      temp.children[`temp${levels}-form`].style.display = "";
-      temp.children[`temp${levels}-story`].style.display = "none";
-      temp.children[`fail-level${levels}`].style.display = "none";
+      document.querySelector(`temp${levels}-form`).style.display = "";
+      document.querySelector(`temp${levels}-story`).style.display = "none";
+      document.querySelector(`fail-level${levels}`).style.display = "none";
       break;
     default:
   }
@@ -141,7 +140,7 @@ function showLevel() {
   let mySpans = temp.children[`temp${levels}-story`].children[0].children;
   // debugger
   for (var i = 0; i < mySpans.length; i++) {
-    let spanner = temp.firstElementChild;
+    let spanner = document.querySelector(`#temp${levels}-form`);;
     let x = document.createElement("input");
     x.type = "text";
     x.id = `span${i + 1}`;
