@@ -32,17 +32,19 @@ frontPage.addEventListener('click',e=>{
       userForm.style.display = 'none'
       newGameBtn[0].style.display = ''
       break;
-    // VIEW / HIDE RECAPS
+    // VIEW RECAPS
     case "viewRecap":
       let show = document.querySelector(`#full-recap${e.target.id}`)
-      recapView = !recapView
-      if (recapView) {
-        show.style.display = ''
-        e.target.value = 'Hide'
-      } else {
-        show.style.display = 'none'
-        e.target.value = 'View'
-      }
+      show.style.display = ''
+      e.target.style.display = 'none'
+      let hideBtn = document.querySelector(`#hide${e.target.id}`)
+      hideBtn.style.display = ''
+      break;
+    // HIDE RECAPS
+    case "hideRecap":
+      e.target.nextElementSibling.style.display = 'none'
+      e.target.style.display = 'none'
+      e.target.nextElementSibling.nextElementSibling.style.display = ''
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
@@ -156,8 +158,9 @@ function userFunc() {
           if (fullStory.length > 0) {
             userRecaps.innerHTML +=`
             <label>${i} - Recap</label>
+            <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
             <ul style="display:none;" id="full-recap${i}">${fullStory.join(" ")}</ul>
-            <input type="submit" name="viewRecap" id=${i} accessKey=${user.id} value="View"/>
+            <input type="button" name="viewRecap" id=${i} accessKey=${user.id} value="View"/>
             <br>
             <br>
             `
