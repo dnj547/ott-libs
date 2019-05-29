@@ -10,6 +10,8 @@ const answers = {
   4: [],
   5: []
 };
+const recapId = {}
+console.log(recapId);
 
 // HTML Variable
 const frontPage = document.querySelector("#front-page");
@@ -45,6 +47,12 @@ frontPage.addEventListener("click", e => {
       var idNum = e.target.id.replace( /^\D+/g, '');
       e.target.style.display = "none";
       let reCnt = document.querySelector(`#full-recap${idNum}`)
+      for (var i in recapId) {
+        if (idNum !== i) {
+          document.querySelector(`#fuck-off${i}`).style.display = 'none';
+          document.querySelector(`#view${i}`).style.display = 'none';// debugger
+        }
+      }
       reCnt.style.display = "";
       if (reCnt.childElementCount < 6) {
         document.querySelector(`#cont${idNum}`).style.display = "";
@@ -55,6 +63,12 @@ frontPage.addEventListener("click", e => {
     case "hideRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
       e.target.style.display = "none";
+      for (var i in recapId) {
+        if (idNum !== i) {
+          document.querySelector(`#fuck-off${i}`).style.display = '';
+          document.querySelector(`#view${i}`).style.display = '';// debugger
+        }
+      }
       document.querySelector(`#full-recap${idNum}`).style.display = "none";
       document.querySelector(`#view${idNum}`).style.display = "";
       break;
@@ -172,12 +186,15 @@ function userFunc() {
             const fullStory = [];
             user.stories.forEach(story => {
               if (story.recap == i) {
+                recapId[story.recap] = true
+                // debugger
                 fullStory.push(story.full_story);
               }
             });
+            // debugger
             if (fullStory.length > 0) {
               userRecaps.innerHTML += `
-              <label>${i} - Recap</label>
+              <label id="fuck-off${i}">${i} - Recap</label>
               <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
               <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`)}
               <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
