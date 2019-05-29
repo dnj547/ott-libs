@@ -24,6 +24,7 @@ const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const smallerCont = document.querySelector("#smaller-ott-libs-container");
 const gamePlayDiv = document.querySelector("#game-play");
 let levels = 1;
+let continueLevel = 0;
 let recapView = false;
 
 frontPage.addEventListener("click", e => {
@@ -52,7 +53,6 @@ frontPage.addEventListener("click", e => {
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
-      // userForm.style.display = 'none'
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
       gamePlayDiv.style.display = "";
@@ -74,7 +74,6 @@ frontPage.addEventListener("click", e => {
       e.preventDefault();
       var temp = document.querySelector(`#temp${levels}-form`);
       temp.style.display = "none";
-      // debugger
       // Create Array to Easily Save to User's Stories
       let storyArr = [];
       let failScore = 0;
@@ -83,24 +82,18 @@ frontPage.addEventListener("click", e => {
           failScore++;
         }
         spans[i].innerText = eChild[`span${i + 1}`].value;
-        // debugger
       }
-      // debugger
       storyArr.push(eStory.children[0].innerText);
-      // e.target.parentElement.innerHTML = `
-      // ${storyArr.join(" ")}
-      // `
       if (failScore == 0) {
         const passSpan = document.querySelector(`#pass-level${levels}`);
         levelCounter[0].style.display = "";
-        // debugger
         eStory.style.display = "";
         passSpan.style.display = "";
         // Story Variables
         const lvl2Color = eStory.children[0].children[4].innerText;
         const lvl2FillSpan = passSpan.children[0].children[0];
         lvl2FillSpan.innerText = lvl2Color;
-        // debugger
+
         // Save Answers to User's Stories
         fetch(STORIES_URL, {
           method: "POST",
@@ -157,7 +150,7 @@ function userFunc() {
       .then(users => {
         let user = users.find(user => user.name === userName.value);
         userRecaps.innerHTML += `
-      <h1>${userName.value}</h1>`;
+        <h1>${userName.value}</h1>`;
         if (user) {
           for (var i = user.stories.length; i > 0; i--) {
             const fullStory = [];
@@ -168,19 +161,10 @@ function userFunc() {
             });
             if (fullStory.length > 0) {
               userRecaps.innerHTML += `
-            <label>${i} - Recap</label>
-            <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${
-                user.id
-              } value="Hide">Hide</button>
-            <ul style="display:none;" id="full-recap${i}">${fullStory.join(
-                " "
-              )}</ul>
-            <input type="button" name="viewRecap" id=${i} accessKey=${
-                user.id
-              } value="View"/>
-            <br>
-            <br>
-            `;
+              <label>${i} - Recap</label>
+              <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+              <ul style="display:none;" id="full-recap${i}">${fullStory.join(" ")}</ul>
+              <input type="button" name="viewRecap" id=${i} accessKey=${user.id} value="View"/>`
             }
           }
           let recapNum = parseInt(userRecaps.children[1].innerText);
