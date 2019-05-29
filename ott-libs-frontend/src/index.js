@@ -113,6 +113,7 @@ frontPage.addEventListener('click',e=>{
       for (var i = 0; i < tempKids.length; i++) {
         tempKids[i].innerText = ""
       }
+      e.target.parentElement.innerHTML = ''
       showLevel()
       break;
     default:
