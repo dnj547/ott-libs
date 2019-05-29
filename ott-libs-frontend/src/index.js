@@ -24,11 +24,13 @@ const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
 
 let levels = 1;
+let continueLevel = 0;
 let recapView = false;
 
 
 frontPage.addEventListener("click", e => {
   console.log(e.target.name);
+  console.log(e.target.id);
   switch (e.target.name) {
     // SIGN IN
     case "signin":
@@ -39,21 +41,33 @@ frontPage.addEventListener("click", e => {
       break;
     // VIEW RECAPS
     case "viewRecap":
-      let show = document.querySelector(`#full-recap${e.target.id}`);
-      show.style.display = "";
+      var idNum = e.target.id.replace( /^\D+/g, '');
       e.target.style.display = "none";
-      let hideBtn = document.querySelector(`#hide${e.target.id}`);
-      hideBtn.style.display = "";
+      let reCnt = document.querySelector(`#full-recap${idNum}`)
+      reCnt.style.display = "";
+      if (reCnt.childElementCount < 6) {
+        document.querySelector(`#cont${idNum}`).style.display = "";
+      }
+      document.querySelector(`#hide${idNum}`).style.display = "";
       break;
     // HIDE RECAPS
     case "hideRecap":
-      e.target.nextElementSibling.style.display = "none";
+      var idNum = e.target.id.replace( /^\D+/g, '');
       e.target.style.display = "none";
-      e.target.nextElementSibling.nextElementSibling.style.display = "";
+      document.querySelector(`#full-recap${idNum}`).style.display = "none";
+      document.querySelector(`#view${idNum}`).style.display = "";
+      break;
+    // CONTINUE FROM RECAP VIEW
+    case 'continue':
+      var idNum = e.target.id.replace( /^\D+/g, '');
+      levels = document.querySelector(`#full-recap${idNum}`).childElementCount + 1;
+      userRecaps.style.display = "none";
+      newGameBtn[0].style.display = "none";
+      gamePlayDiv.style.display = "";
+      showLevel()
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
-      // userForm.style.display = 'none'
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
       gamePlayDiv.style.display = "";
@@ -76,7 +90,6 @@ frontPage.addEventListener("click", e => {
       e.preventDefault();
       var temp = document.querySelector(`#temp${levels}-form`);
       temp.style.display = "none";
-      // debugger
       // Create Array to Easily Save to User's Stories
       let storyArr = [];
       let failScore = 0;
@@ -85,24 +98,18 @@ frontPage.addEventListener("click", e => {
           failScore++;
         }
         spans[i].innerText = eChild[`span${i + 1}`].value;
-        // debugger
       }
-      // debugger
       storyArr.push(eStory.children[0].innerText);
-      // e.target.parentElement.innerHTML = `
-      // ${storyArr.join(" ")}
-      // `
       if (failScore == 0) {
         const passSpan = document.querySelector(`#pass-level${levels}`);
         levelCounter[0].style.display = "";
-        // debugger
         eStory.style.display = "";
         passSpan.style.display = "";
         // Story Variables
         const lvl2Color = eStory.children[0].children[4].innerText;
         const lvl2FillSpan = passSpan.children[0].children[0];
         lvl2FillSpan.innerText = lvl2Color;
-        // debugger
+
         // Save Answers to User's Stories
         fetch(STORIES_URL, {
           method: "POST",
@@ -140,14 +147,13 @@ function showLevel() {
   var temp = document.querySelector(`#template-${levels}`);
   temp.style.display = "";
   let mySpans = temp.children[`temp${levels}-story`].children[0].children;
-  // debugger
   for (var i = 0; i < mySpans.length; i++) {
     let spanner = document.querySelector(`#temp${levels}-form`);;
     let x = document.createElement("input");
     x.type = "text";
     x.id = `span${i + 1}`;
     x.placeholder = mySpans[i].accessKey;
-    spanner.append(x);
+    spanner.prepend(x);
   }
 }
 
@@ -159,7 +165,7 @@ function userFunc() {
       .then(users => {
         let user = users.find(user => user.name === userName.value);
         userRecaps.innerHTML += `
-      <h1>${userName.value}</h1>`;
+        <h1>${userName.value}</h1>`;
         if (user) {
           for (var i = user.stories.length; i > 0; i--) {
             const fullStory = [];
@@ -170,19 +176,13 @@ function userFunc() {
             });
             if (fullStory.length > 0) {
               userRecaps.innerHTML += `
-            <label>${i} - Recap</label>
-            <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${
-                user.id
-              } value="Hide">Hide</button>
-            <ul style="display:none;" id="full-recap${i}">${fullStory.join(
-                " "
-              )}</ul>
-            <input type="button" name="viewRecap" id=${i} accessKey=${
-                user.id
-              } value="View"/>
-            <br>
-            <br>
-            `;
+              <label>${i} - Recap</label>
+              <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`)}
+              <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
+              </ul>
+              <input type="button" name="viewRecap" id="view${i}" accessKey=${user.id} value="View"/>
+              <br>`
             }
           }
           let recapNum = parseInt(userRecaps.children[1].innerText);
