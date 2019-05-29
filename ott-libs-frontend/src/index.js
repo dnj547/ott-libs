@@ -13,7 +13,7 @@ const answers = {
 
 // HTML Variable
 const frontPage = document.querySelector("#front-page");
-const userForm = document.querySelector("#ott-libs-container");
+const welcomeOttLibsCont = document.querySelector("#welcome-ott-libs-container");
 const signIn = document.querySelector("#signin");
 const userName = document.querySelector("#uname");
 const userRecaps = document.querySelector("#user-recaps");
@@ -21,7 +21,7 @@ const newGameBtn = document.getElementsByName("new-game");
 const levelCounter = document.getElementsByName("level-counter");
 const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
-const smallerCont = document.querySelector("#smaller-ott-libs-container");
+const ottLibsCont = document.querySelector("#ott-libs-container");
 const gamePlayDiv = document.querySelector("#game-play");
 let levels = 1;
 let continueLevel = 0;
@@ -34,17 +34,20 @@ frontPage.addEventListener("click", e => {
     // SIGN IN
     case "signin":
       userFunc();
-      userForm.style.display = "none";
-      smallerCont.style.display = "";
+      welcomeOttLibsCont.style.display = "none";
+      ottLibsCont.style.display = "";
       newGameBtn[0].style.display = "";
       break;
     // VIEW RECAPS
     case "viewRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
       e.target.style.display = "none";
-      document.querySelector(`#full-recap${idNum}`).style.display = "";
+      let reCnt = document.querySelector(`#full-recap${idNum}`)
+      reCnt.style.display = "";
+      if (reCnt.childElementCount < 6) {
+        document.querySelector(`#cont${idNum}`).style.display = "";
+      }
       document.querySelector(`#hide${idNum}`).style.display = "";
-      document.querySelector(`#cont${idNum}`).style.display = "";
       break;
     // HIDE RECAPS
     case "hideRecap":
@@ -56,12 +59,11 @@ frontPage.addEventListener("click", e => {
     // CONTINUE FROM RECAP VIEW
     case 'continue':
       var idNum = e.target.id.replace( /^\D+/g, '');
-      levels = document.querySelector(`#full-recap${idNum+1}`).childElementCount
+      levels = document.querySelector(`#full-recap${idNum}`).childElementCount + 1;
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
       gamePlayDiv.style.display = "";
       showLevel()
-      debugger
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
@@ -154,7 +156,7 @@ function showLevel() {
 }
 
 function userFunc() {
-  userForm.addEventListener("submit", e => {
+  welcomeOttLibsCont.addEventListener("submit", e => {
     e.preventDefault();
     fetch(USERS_URL)
       .then(r => r.json())
