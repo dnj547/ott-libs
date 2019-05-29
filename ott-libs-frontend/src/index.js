@@ -22,6 +22,7 @@ const levelCounter = document.getElementsByName("level-counter");
 const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
+const gamePlayDiv = document.querySelector('#game-play');
 
 let levels = 1;
 let continueLevel = 0;
