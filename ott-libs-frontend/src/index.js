@@ -40,6 +40,12 @@ frontPage.addEventListener("click", e => {
       ottLibsCont.style.display = "block";
       newGameBtn[0].style.display = "block";
       break;
+    case "ott-libs-logo":
+      gamePlayDiv.style.display = "none"
+      ottLibsCont.style.display = "block";
+      newGameBtn[0].style.display = "block";
+      userRecaps.style.display = "block";
+      break;
     // VIEW RECAPS
     case "viewRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
@@ -97,7 +103,7 @@ frontPage.addEventListener("click", e => {
       let spans = document.querySelector(`#temp${levels}-story`).children
       let eStory = document.querySelector(`#temp${levels}-story`);
       document.querySelector(`#temp${levels}-form`).style.display = 'none';
-      eStory.style.display = ''
+      eStory.style.display = "block"
       let storyArr = [];
       let failScore = 0;
 
@@ -117,8 +123,8 @@ frontPage.addEventListener("click", e => {
           let uValue = document.querySelector(`#${passSpan.children[i].accessKey}`)
           passSpan.children[i].innerText = uValue.value
         }
-        passSpan.style.display = ''
-        levelCounter[0].style.display = ''
+        passSpan.style.display = "block"
+        levelCounter[0].style.display = "block"
         storyArr.push(passSpan.innerText)
 
         // Save Answers to User's Stories
