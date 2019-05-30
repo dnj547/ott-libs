@@ -44,7 +44,7 @@ frontPage.addEventListener("click", e => {
     // VIEW RECAPS
     case "viewRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
-      e.target.style.display = "none";
+      // e.target.style.display = "none";
       let reCnt = document.querySelector(`#full-recap${idNum}`)
       for (var i in recapId) {
         if (idNum !== i) {
@@ -200,15 +200,26 @@ function userFunc() {
               let otterImgTag = document.createElement('img')
               otterImgTag.src = "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_north-american-river-otter_600x300.ashx"
               otterImgTag.classList.add('otterRecapImage')
+              otterImgTag.name = "viewRecap"
+              otterImgTag.id = `view${i}`
+              otterImgTag.accessKey = `${user.id}`
+              let hidebtn = document.createElement('button')
+              hidebtn.style = "display:none" type="button"
+              hidebtn.name = "hideRecap"
+              hidebtn.id = `hide${i}`
+              hidebtn.accessKey = `${user.id}`
+              let contbtn = document.createElement('button')
+              contbtn.style = "display:none" type="button"
+              contbtn.name = "continue"
+              contbtn.id = `cont{i}`
+              contbtn.accessKey = `${user.id}`
+
               recapJumboDiv.appendChild(otterImgTag)
 
               userRecaps.innerHTML += `
-              <label id="fuck-off${i}">${i} - Recap</label>
+              <label class="" id="fuck-off${i}">${i} - Recap</label>
               <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
-              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`)}
               <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
-              </ul>
-              <input type="button" name="viewRecap" id="view${i}" accessKey=${user.id} value="View"/>
               <br>`
             }
           }
