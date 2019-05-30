@@ -184,6 +184,20 @@ function userFunc() {
             });
             // debugger
             if (fullStory.length > 0) {
+              let recapContDiv = document.createElement('div')
+              recapContDiv.id = `rc${i}`
+              recapContDiv.classList.add('container')
+              let recapJumboDiv = document.createElement('div')
+              recapJumboDiv.id = `rj${i}`
+              recapJumboDiv.classList.add('jumbotron')
+              recapJumboDiv.classList.add('imageDiv')
+              userRecaps.appendChild(recapContDiv)
+              recapContDiv.appendChild(recapJumboDiv)
+              let otterImgTag = document.createElement('img')
+              otterImgTag.src = "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_north-american-river-otter_600x300.ashx"
+              otterImgTag.classList.add('otterRecapImage')
+              recapJumboDiv.appendChild(otterImgTag)
+
               userRecaps.innerHTML += `
               <label id="fuck-off${i}">${i} - Recap</label>
               <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
