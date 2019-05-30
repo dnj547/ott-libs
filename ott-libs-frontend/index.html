@@ -27,7 +27,7 @@
             </form>
           </div>
         </div>
-      </div> <!-- End ott-libs-container -->
+      </div> <!-- End welcome-ott-libs-container -->
 
       <div style="display:none" class="container" id="ott-libs-container">
         <div class="jumbotron">
@@ -41,6 +41,7 @@
           </div>
 
           <div id="game-play" class="jumbotron" style="display:none;">
+
             <div id="template-1" class="container" style="display:none;">
               <p>You are an otter in the Central Park Zoo. No one comes to see the otter exhibit. You feel under appreciated and unloved.
               But then one day, a group of people visit the zoo and you hear them talking about how much they love otters!
@@ -51,46 +52,56 @@
               Wait a minute. They had shirts on that said “Flatiron School”… What if that’s where they live?
               Why don’t you and the otters just escape from the zoo and find Flatiron School? The people would be so happy to see you!
               You hatch a plan with your otter friends to escape from the zoo and find Flatiron School.</p>
-            </div>
-
-            <form id="temp1-form" method="get">
-              <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit" style="display:none;">
-            </form>
-
             </div> <!-- End template-1 -->
 
             <div id="template-2" style="display:none;" class="container">
 
               <form method="post" style="color:black">
                 <div id="temp2-form" class="form-group">
+                  <input type="text" id="verb-ing1" placeholder="Verb ending in 'ing'">
+                  <input type="text" id="large-noun1" placeholder="Noun - Large">
+                  <input type="text" id="plural-noun1" placeholder="Plural Noun">
+                  <input type="text" id="verb1" placeholder="Verb">
+                  <input type="text" id="color1" placeholder="Color">
+                  <input type="text" id="noun1" placeholder="Noun">
+                  <input type="text" id="name1" placeholder="Name">
+                  <input type="text" id="animal1" placeholder="Animal">
+                  <input type="text" id="outrage1" placeholder="Outraged Expression">
                   <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit"/>
                 </div>
               </form>
 
-              <div style="display:none" id="temp2-story" class="container">
-                <p>You wait until night time when the zookeepers are away <span style="color:blue;font-weight:bold;" accessKey="Verb Ending in 'ing'"></span>.
-                  You climb up a <span accessKey="Noun - Something Large"></span>
-                  and you get halfway to the top when out of nowhere a wave of <span accessKey="Plural Noun"></span>
-                  crash down on you knocking you to the ground! But that doesn’t stop you. You get right back up again. Your friends <span accessKey="Verb"></span> together to help you get up so close to the top you can see the <span accessKey="Color"></span> sky! But then, a motion sensing <span accessKey="Noun"></span> turns on, and you are in the spotlight. You suddenly hear <span accessKey="Name"></span> the <span accessKey="Animal"></span> scream "<span accessKey="Outraged Expression"></span>" nearby. It startles you, and you almost fall off of the <span accessKey="Same Large Noun"></span>! Your otter friends are staring up at you in anticipation. Will you make it out alive? Are the zookeepers on their way? Will you ever get to Flatiron School?? Will you be stuck here in the zoo forever???</p>
-              </div>
+              <p style="display:none" id="temp2-story" class="container">You wait until night time when the zookeepers are away <span accesskey="verb-ing1">verb-ing</span>. You climb up a <span accesskey="large-noun1">large noun</span>and you get halfway to the top when out of nowhere a wave of <span accesskey="plural-noun1">plural noun</span> crash down on you knocking you to the ground! But that doesn’t stop you. You get right back up again. Your friends <span accesskey="verb1">verb</span> together to help you get up so close to the top you can see the <span accesskey="color1">color</span> sky! But then, a motion sensing <span accesskey="noun1">noun</span> turns on, and you are in the spotlight. You suddenly hear <span accesskey="name1">name</span> the <span accesskey="animal1">animal</span> scream '<span accesskey="outrage1">outraged expression</span>' nearby. It startles you, and you almost fall off of the <span accesskey="large-noun1">same large noun</span>! Your otter friends are staring up at you in anticipation. Will you make it out alive? Are the zookeepers on their way? Will you ever get to Flatiron School?? Will you be stuck here in the zoo forever???</p>
 
-              <div style="display:none" id="pass-level2" class="container">
-                <p>You got to the top of the cage! But, there’s no way out. How did you never notice that the cage has a <span style="color:blue;font-weight:bold;" accessKey="Color"></span> roof??
-                  You’re disappointed, but you’re proud of yourself. You made it to the top. You can do this. You’re determined to find a way to your Flatiron friends.<p>
-              </div>
+              <p style="display:none" id="pass-level2" class="container">You got to the top of the cage! But, there’s no way out. How did you never notice that the cage has a <span accesskey="color1">same color</span> roof?? You’re disappointed, but you’re proud of yourself. You made it to the top. You can do this. You’re determined to find a way to your Flatiron friends.<p>
 
-              <div style="display:none;" id='fail-level2' class="container">
-                <p>Oh no! The zookeepers came and saw you trying to escape. They picked you up and put you back down on the ground with your otter friends.</p>
-                <button style="display:none;" type="button" accessKey="" id="" name="retry-level">Retry</button>
-              </div>
+              <p style="display:none;" id='fail-level2' class="container">Oh no! The zookeepers came and saw you trying to escape. They picked you up and put you back down on the ground with your otter friends.</p>
+              <button style="display:none;" type="button" accessKey="" id="" name="retry-level">Retry</button>
 
             </div> <!-- End template-2 -->
 
+            <div id="template-3" style="display:none;" class="container">
+
+              <form method="post" style="color:black">
+                <div id="temp3-form" class="form-group">
+                  <input type="submit" name="submit-level" class="submit-level-words" accessKey="" id="" value="Submit"/>
+                </div>
+              </form>
+
+              <p style="display:none" id="temp3-story" class="container">The following day, you befriend a/an [adjective] monkey named [name]. [name] is always sneaking away from the zookeepers and [verb ending in ing] things from people. [name] thinks it’s hilarious when zookeepers have to chase him. You decide to make a deal with the monkey. You’ll give him all of your hoarded [snack]s if he’ll steal the zookeeper’s keys for you. [name] accepts the offer and [adverb ending in ly] gets to work. [name] [verb ending in s] with another monkey, and they make a plan. At [verb ending in ing] time, the other monkey goes crazy [verb ending in ing] and [verb ending in ing] all around the cage. [name] takes the keys from a zookeeper’s [article of clothing]. At night, [name] sneaks out and comes to your cage for the [snack]s. You give him the [snack]s and [name] gives you the keys. Now, all you have to do is use them!</p>
+
+              <p style="display:none" id="pass-level3" class="container">You got to the top of the cage! But, there’s no way out. How did you never notice that the cage has a <span style="color:blue;font-weight:bold;" accessKey="Color"></span> roof?? You’re disappointed, but you’re proud of yourself. You made it to the top. You can do this. You’re determined to find a way to your Flatiron friends.<p>
+
+              <p style="display:none;" id='fail-level3' class="container">Oh no! The zookeepers came and saw you trying to escape. They picked you up and put you back down on the ground with your otter friends.</p>
+              <button style="display:none;" type="button" accessKey="" id="" name="retry-level">Retry</button>
+
+            </div> <!-- End template-3 -->
+
             <button style="display:none;" type="button" accessKey="" id="" name="level-counter">Continue</button>
 
-          </div> <!-- End game-play -->
-        </div><!-- End jumbotron -->
-      </div><!-- End smaller-ott-libs-container -->
+          </div> <!-- End game-play jumbotron -->
+        </div> <!-- End jumbotron -->
+      </div><!-- End ott-libs-container -->
     </div> <!-- End front-page -->
 
     <!-- Bootstrap -->
