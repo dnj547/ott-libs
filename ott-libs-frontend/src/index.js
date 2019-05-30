@@ -48,7 +48,7 @@ frontPage.addEventListener("click", e => {
       let reCnt = document.querySelector(`#full-recap${idNum}`)
       for (var i in recapId) {
         if (idNum !== i) {
-          document.querySelector(`#fuck-off${i}`).style.display = 'none';
+          // document.querySelector(`#fuck-off${i}`).style.display = 'none';
           document.querySelector(`#view${i}`).style.display = 'none';// debugger
         }
       }
@@ -64,7 +64,7 @@ frontPage.addEventListener("click", e => {
       e.target.style.display = "none";
       for (var i in recapId) {
         if (idNum !== i) {
-          document.querySelector(`#fuck-off${i}`).style.display = '';
+          // document.querySelector(`#fuck-off${i}`).style.display = '';
           document.querySelector(`#view${i}`).style.display = '';// debugger
         }
       }
@@ -203,23 +203,14 @@ function userFunc() {
               otterImgTag.name = "viewRecap"
               otterImgTag.id = `view${i}`
               otterImgTag.accessKey = `${user.id}`
-              let hidebtn = document.createElement('button')
-              hidebtn.style = "display:none" type="button"
-              hidebtn.name = "hideRecap"
-              hidebtn.id = `hide${i}`
-              hidebtn.accessKey = `${user.id}`
-              let contbtn = document.createElement('button')
-              contbtn.style = "display:none" type="button"
-              contbtn.name = "continue"
-              contbtn.id = `cont{i}`
-              contbtn.accessKey = `${user.id}`
 
               recapJumboDiv.appendChild(otterImgTag)
 
               userRecaps.innerHTML += `
-              <label class="" id="fuck-off${i}">${i} - Recap</label>
-              <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`)}
               <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
+              <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+              </ul>
               <br>`
             }
           }
