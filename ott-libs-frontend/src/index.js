@@ -6,9 +6,9 @@ RECAPS_URL = "http://localhost:3000/api/v1/recaps";
 
 const answers = {
   2: ["sleeping", "", "partying", "gate", "tree", "wall", "otters"],
-  3: [],
-  4: [],
-  5: []
+  3: [""],
+  4: [""],
+  5: [""]
 };
 const recapId = {}
 console.log(recapId);
@@ -21,7 +21,6 @@ const userName = document.querySelector("#uname");
 const userRecaps = document.querySelector("#user-recaps");
 const newGameBtn = document.getElementsByName("new-game");
 const levelCounter = document.getElementsByName("level-counter");
-const retryLevel = document.getElementsByName("retry-level");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
 const gamePlayDiv = document.querySelector('#game-play')
@@ -141,12 +140,17 @@ frontPage.addEventListener("click", e => {
       } else {
         eStory.style.display = "";
         const failSpan = document.querySelector(`#fail-level${levels}`);
+        for (var i=0; i<failSpan.childElementCount; i++) {
+          let uValue = document.querySelector(`#${failSpan.children[i].accessKey}`)
+          failSpan.children[i].innerText = uValue.value
+        }
         failSpan.style.display = "";
+        const retryLevel = document.getElementsByName(`retry-level${levels}`);
         retryLevel[0].style.display = "";
       }
       break;
     // RETRY FAILED LEVEL
-    case "retry-level":
+    case `retry-level${levels}`:
       e.target.style.display = "none";
       document.querySelector(`#temp${levels}-form`).style.display = "";
       document.querySelector(`#temp${levels}-story`).style.display = "none";
