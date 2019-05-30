@@ -167,7 +167,7 @@ function userFunc() {
       .then(users => {
         let user = users.find(user => user.name === userName.value);
         userRecaps.innerHTML += `
-        <h1>${userName.value}</h1>`;
+        <div class="container"><h1>${userName.value}</h1></div>`;
         if (user) {
           for (var i = user.stories.length; i > 0; i--) {
             const fullStory = [];
@@ -183,6 +183,7 @@ function userFunc() {
               let recapContDiv = document.createElement('div')
               recapContDiv.id = `rc${i}`
               recapContDiv.classList.add('container')
+              recapContDiv.classList.add('recapCont')
               let recapJumboDiv = document.createElement('div')
               recapJumboDiv.id = `rj${i}`
               recapJumboDiv.classList.add('jumbotron')
