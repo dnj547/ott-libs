@@ -144,7 +144,7 @@ frontPage.addEventListener("click", e => {
           },
           body: JSON.stringify({
             user_id: e.target.accessKey,
-            full_story: storyArr,
+            full_story: storyArr.join(" "),
             recap: e.target.id
           })
         });
