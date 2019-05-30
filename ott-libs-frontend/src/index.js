@@ -3,15 +3,16 @@ USERS_URL = "http://localhost:3000/api/v1/users";
 STORIES_URL = "http://localhost:3000/api/v1/stories";
 TEMPLATES_URL = "http://localhost:3000/api/v1/templates";
 RECAPS_URL = "http://localhost:3000/api/v1/recaps";
+let otterFailPics = ["https://i.redd.it/k4w87twml1q01.jpg", "https://i.kinja-img.com/gawker-media/image/upload/s--FJoi4q8S--/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/18ojw7hel2z0ijpg.jpg", "http://getsokt.com/wp-content/uploads/2017/02/1-monday-mourning-99.jpg", "https://farm8.staticflickr.com/7783/18176452435_c21f89b50a_b.jpg", "https://i.chzbgr.com/full/7085969152/h4560A3C9/", "https://i.chzbgr.com/full/8323247616/hAD3DDEDE/"]
+let otterPics = ["https://i.ytimg.com/vi/eLPmUoiQjjo/hqdefault.jpg", "https://i.ytimg.com/vi/C6g9paOX-4Q/maxresdefault.jpg", "https://media1.tenor.com/images/8028b741caa2ce1caf9355e1fbdf7f7f/tenor.gif?itemid=5263676", "https://i.redd.it/kztazrz9xliz.jpg", "https://nexter.org/wp-content/uploads/2017/12/cute-otter-pic-4-800x450.jpg", "https://i.pinimg.com/564x/5d/38/89/5d388907e1527089d146240927739262--river-otter-sea-otter.jpg", "https://nexter.org/wp-content/uploads/2017/12/cute-otter-pic-5-800x533.jpg"]
 
 const answers = {
-  2: ["sleeping", "", "partying", "gate", "tree", "wall", "otters"],
+  2: [""],
   3: [""],
   4: [""],
   5: [""]
 };
 const recapId = {}
-console.log(recapId);
 
 // HTML Variable
 const frontPage = document.querySelector("#front-page");
@@ -123,6 +124,7 @@ frontPage.addEventListener("click", e => {
           let uValue = document.querySelector(`#${passSpan.children[i].accessKey}`)
           passSpan.children[i].innerText = uValue.value
         }
+        document.querySelector(`#pass-pic${levels}`).src = `${otterPics[Math.floor(Math.random()*otterPics.length - 1)]}`;
         passSpan.style.display = "block"
         levelCounter[0].style.display = "block"
         storyArr.push(passSpan.innerText)
@@ -144,9 +146,12 @@ frontPage.addEventListener("click", e => {
         eStory.style.display = "block";
         const failSpan = document.querySelector(`#fail-level${levels}`);
         for (var i=0; i<failSpan.childElementCount; i++) {
-          let uValue = document.querySelector(`#${failSpan.children[i].accessKey}`)
-          failSpan.children[i].innerText = uValue.value
+          let uValue = document.querySelector(`#${failSpan.children[i].accessKey}`) || false
+          if (uValue) {
+            failSpan.children[i].innerText = uValue.value
+          }
         }
+        document.querySelector(`#fail-pic${levels}`).src = `${otterFailPics[Math.floor(Math.random()*otterFailPics.length)]}`;
         failSpan.style.display = "block";
         const retryLevel = document.getElementsByName(`retry-level${levels}`);
         retryLevel[0].style.display = "block";
@@ -196,7 +201,7 @@ function userFunc() {
               userRecaps.appendChild(recapContDiv)
               recapContDiv.appendChild(recapJumboDiv)
               let otterImgTag = document.createElement('img')
-              otterImgTag.src = "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_north-american-river-otter_600x300.ashx"
+              otterImgTag.src = `${otterPics[Math.floor(Math.random()*otterPics.length - 1)]}`
               otterImgTag.classList.add('otterRecapImage')
               otterImgTag.name = "viewRecap"
               otterImgTag.id = `view${i}`
