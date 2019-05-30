@@ -18,3 +18,7 @@ span {
   -webkit-clip-path: polygon(270px 420px,690px 420px,690px 0px,270px 0px);
 
 }
+
+.hideMe {
+  display: none;
+}

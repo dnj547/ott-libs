@@ -29,7 +29,6 @@ let levels = 1;
 let continueLevel = 0;
 let recapView = false;
 
-
 frontPage.addEventListener("click", e => {
   console.log(e.target.name);
   console.log(e.target.id);
@@ -38,25 +37,23 @@ frontPage.addEventListener("click", e => {
     case "signin":
       userFunc();
       welcomeOttLibsCont.style.display = "none";
-      ottLibsCont.style.display = "";
-      newGameBtn[0].style.display = "";
+      ottLibsCont.style.display = "block";
+      newGameBtn[0].style.display = "block";
       break;
     // VIEW RECAPS
     case "viewRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
-      // e.target.style.display = "none";
       let reCnt = document.querySelector(`#full-recap${idNum}`)
       for (var i in recapId) {
         if (idNum !== i) {
-          // document.querySelector(`#fuck-off${i}`).style.display = 'none';
-          document.querySelector(`#view${i}`).style.display = 'none';// debugger
+          document.querySelector(`#view${i}`).style.display = 'none';
         }
       }
-      reCnt.style.display = "";
+      reCnt.style.display = "block";
       if (reCnt.childElementCount < 6) {
-        document.querySelector(`#cont${idNum}`).style.display = "";
+        document.querySelector(`#cont${idNum}`).style.display = "block";
       }
-      document.querySelector(`#hide${idNum}`).style.display = "";
+      document.querySelector(`#hide${idNum}`).style.display = "block";
       break;
     // HIDE RECAPS
     case "hideRecap":
@@ -64,35 +61,35 @@ frontPage.addEventListener("click", e => {
       e.target.style.display = "none";
       for (var i in recapId) {
         if (idNum !== i) {
-          // document.querySelector(`#fuck-off${i}`).style.display = '';
-          document.querySelector(`#view${i}`).style.display = '';// debugger
+          document.querySelector(`#view${i}`).style.display = "block";
         }
       }
       document.querySelector(`#full-recap${idNum}`).style.display = "none";
-      document.querySelector(`#view${idNum}`).style.display = "";
+      document.querySelector(`#view${idNum}`).style.display = "block";
       break;
     // CONTINUE FROM RECAP VIEW
     case 'continue':
       var idNum = e.target.id.replace( /^\D+/g, '');
-      levels = document.querySelector(`#full-recap${idNum}`).childElementCount + 1;
+      levels = document.querySelector(`#full-recap${idNum}`).childElementCount;
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
-      showLevel()
+      gamePlayDiv.style.display = "block";
+      document.querySelector(`#template-${levels}`).style.display = "block";
       break;
     // BEGIN NEW GAME - HIDE SIGN IN, RECAPS, NEW GAME BUTTON - SHOW LEVEL COUNTER BUTTON, FIRST TEMPLATE (INTRO)
     case "new-game":
       userRecaps.style.display = "none";
       newGameBtn[0].style.display = "none";
       gamePlayDiv.style.display = "block";
-      document.querySelector(`#template-${levels}`).style.display = "";
-      levelCounter[0].style.display = "";
+      document.querySelector(`#template-${levels}`).style.display = "block";
+      levelCounter[0].style.display = "block";
       break;
     // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
     case "level-counter":
       document.querySelector(`#template-${levels}`).style.display = "none";
       levelCounter[0].style.display = "none";
       levels++;
-      showLevel();
+      document.querySelector(`#template-${levels}`).style.display = "block";
       break;
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
@@ -138,21 +135,21 @@ frontPage.addEventListener("click", e => {
           })
         });
       } else {
-        eStory.style.display = "";
+        eStory.style.display = "block";
         const failSpan = document.querySelector(`#fail-level${levels}`);
         for (var i=0; i<failSpan.childElementCount; i++) {
           let uValue = document.querySelector(`#${failSpan.children[i].accessKey}`)
           failSpan.children[i].innerText = uValue.value
         }
-        failSpan.style.display = "";
+        failSpan.style.display = "block";
         const retryLevel = document.getElementsByName(`retry-level${levels}`);
-        retryLevel[0].style.display = "";
+        retryLevel[0].style.display = "block";
       }
       break;
     // RETRY FAILED LEVEL
     case `retry-level${levels}`:
       e.target.style.display = "none";
-      document.querySelector(`#temp${levels}-form`).style.display = "";
+      document.querySelector(`#temp${levels}-form`).style.display = "block";
       document.querySelector(`#temp${levels}-story`).style.display = "none";
       document.querySelector(`#fail-level${levels}`).style.display = "none";
       break;
@@ -161,11 +158,6 @@ frontPage.addEventListener("click", e => {
 });
 
 // HELPER FETCHES
-// Create New User or Show Old User's Recaps
-function showLevel() {
-  var temp = document.querySelector(`#template-${levels}`);
-  temp.style.display = "";
-}
 
 function userFunc() {
   welcomeOttLibsCont.addEventListener("submit", e => {
