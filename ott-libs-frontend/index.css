@@ -14,10 +14,6 @@ span {
   font-weight: bold;
 }
 
-/* .imageDiv {
-  -webkit-clip-path: polygon(270px 420px,690px 420px,690px 0px,270px 0px);
-} */
-
 .userRecaps {
   height:20px;
 }
@@ -49,6 +45,9 @@ span {
   padding: 0px 0px 0px 0px;
 }
 
+.otterRecapImage:hover {
+  border: 10px solid black;
+}
 
 .flex-container {
   display: flex;
