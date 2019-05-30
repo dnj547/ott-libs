@@ -94,6 +94,7 @@ frontPage.addEventListener("click", e => {
     // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
     case "level-counter":
       document.querySelector(`#template-${levels}`).style.display = "none";
+      document.querySelector(`#pass-pic${levels}`).style.display = "none";
       levelCounter[0].style.display = "none";
       levels++;
       document.querySelector(`#template-${levels}`).style.display = "block";
@@ -124,7 +125,9 @@ frontPage.addEventListener("click", e => {
           let uValue = document.querySelector(`#${passSpan.children[i].accessKey}`)
           passSpan.children[i].innerText = uValue.value
         }
-        document.querySelector(`#pass-pic${levels}`).src = `${otterPics[Math.floor(Math.random()*otterPics.length - 1)]}`;
+        var passPic = document.querySelector(`#pass-pic${levels}`)
+        passPic.src = `${otterPics[Math.floor(Math.random()*otterPics.length - 1)]}`;
+        passPic.style.display = "block"
         passSpan.style.display = "block"
         levelCounter[0].style.display = "block"
         storyArr.push(passSpan.innerText)
@@ -151,7 +154,9 @@ frontPage.addEventListener("click", e => {
             failSpan.children[i].innerText = uValue.value
           }
         }
-        document.querySelector(`#fail-pic${levels}`).src = `${otterFailPics[Math.floor(Math.random()*otterFailPics.length)]}`;
+        let failPic = document.querySelector(`#fail-pic${levels}`)
+        failPic.src = `${otterFailPics[Math.floor(Math.random()*otterFailPics.length)]}`;
+        failPic.style.display = "block"
         failSpan.style.display = "block";
         const retryLevel = document.getElementsByName(`retry-level${levels}`);
         retryLevel[0].style.display = "block";
@@ -160,6 +165,7 @@ frontPage.addEventListener("click", e => {
     // RETRY FAILED LEVEL
     case `retry-level${levels}`:
       e.target.style.display = "none";
+      document.querySelector(`#fail-pic${levels}`).style.display = "none"
       document.querySelector(`#temp${levels}-form`).style.display = "block";
       document.querySelector(`#temp${levels}-story`).style.display = "none";
       document.querySelector(`#fail-level${levels}`).style.display = "none";
@@ -202,7 +208,7 @@ function userFunc() {
               userRecaps.appendChild(recapContDiv)
               recapContDiv.appendChild(recapJumboDiv)
               let otterImgTag = document.createElement('img')
-              otterImgTag.src = `${otterPics[Math.floor(Math.random()*otterPics.length - 1)]}`
+              otterImgTag.src = `${otterPics[Math.floor(Math.random()*otterPics.length)]}`
               otterImgTag.classList.add('otterRecapImage')
               otterImgTag.name = "viewRecap"
               otterImgTag.id = `view${i}`
