@@ -98,7 +98,10 @@ frontPage.addEventListener("click", e => {
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
       e.preventDefault();
-      let spans = document.querySelector(`#temp${levels}-story`).children[0].children
+      let spans = document.querySelector(`#temp${levels}-story`).children
+      let eStory = document.querySelector(`#temp${levels}-story`);
+      document.querySelector(`#temp${levels}-form`).style.display = 'none';
+      eStory.style.display = ''
       let storyArr = [];
       let failScore = 0;
 
@@ -109,31 +112,19 @@ frontPage.addEventListener("click", e => {
         }
         spans[i].innerText = uValue.value
       }
-      // let eChild = e.target.parentElement.children;
-      // let eStory = document.querySelector(`#temp${levels}-story`);
-      // var spans = eStory.children[0].children;
-      // var temp = document.querySelector(`#temp${levels}-form`);
-      // temp.style.display = "none";
-      // // Create Array to Easily Save to User's Stories
-      // for (var i = 0; i < spans.length; i++) {
-      //   if (answers[levels].includes(eChild[i].value)) {
-      //     failScore++;
-      //   }
-      //   spans[i].innerText = eChild[`span${i + 1}`].value;
-      // }
-      // storyArr.push(eStory.children[0].innerText);
+
+      storyArr.push(eStory.innerText);
+
       if (failScore == 0) {
         const passSpan = document.querySelector(`#pass-level${levels}`);
-        debugger
-      //   levelCounter[0].style.display = "";
-      //   eStory.style.display = "";
-      //   passSpan.style.display = "";
-      //   // Story Variables
-      //   const lvl2Color = eStory.children[0].children[4].innerText;
-      //   const lvl2FillSpan = passSpan.children[0].children[0];
-      //   lvl2FillSpan.innerText = lvl2Color;
-      //   storyArr.push(passSpan.children[0].innerText)
-      //   debugger
+        for (var i=0; i<passSpan.childElementCount; i++) {
+          let uValue = document.querySelector(`#${passSpan.children[i].accessKey}`)
+          passSpan.children[i].innerText = uValue.value
+        }
+        passSpan.style.display = ''
+        levelCounter[0].style.display = ''
+        storyArr.push(passSpan.innerText)
+
         // Save Answers to User's Stories
         fetch(STORIES_URL, {
           method: "POST",
@@ -170,15 +161,6 @@ frontPage.addEventListener("click", e => {
 function showLevel() {
   var temp = document.querySelector(`#template-${levels}`);
   temp.style.display = "";
-  // let mySpans = temp.children[`temp${levels}-story`].children[0].children;
-  // for (var i = 0; i < mySpans.length; i++) {
-  //   let spanner = document.querySelector(`#temp${levels}-form`);;
-  //   let x = document.createElement("input");
-  //   x.type = "text";
-  //   x.id = `span${i + 1}`;
-  //   x.placeholder = mySpans[i].accessKey;
-  //   spanner.prepend(x);
-  // }
 }
 
 function userFunc() {
