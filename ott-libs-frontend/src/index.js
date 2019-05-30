@@ -53,6 +53,7 @@ frontPage.addEventListener("click", e => {
       let reCnt = document.querySelector(`#full-recap${idNum}`)
       for (var i in recapId) {
         if (idNum !== i) {
+          document.querySelector(`#rj${i}`).style.display = 'none';
           document.querySelector(`#view${i}`).style.display = 'none';
         }
       }
@@ -68,10 +69,12 @@ frontPage.addEventListener("click", e => {
       e.target.style.display = "none";
       for (var i in recapId) {
         if (idNum !== i) {
+          document.querySelector(`#rj${i}`).style.display = "block";
           document.querySelector(`#view${i}`).style.display = "block";
         }
       }
       document.querySelector(`#full-recap${idNum}`).style.display = "none";
+      document.querySelector(`#rj${idNum}`).style.display = "block";
       document.querySelector(`#view${idNum}`).style.display = "block";
       break;
     // CONTINUE FROM RECAP VIEW
