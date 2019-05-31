@@ -22,6 +22,7 @@ const userName = document.querySelector("#uname");
 const userRecaps = document.querySelector("#user-recaps");
 const newGameBtn = document.getElementsByName("new-game");
 const levelCounter = document.getElementsByName("level-counter");
+const endGameBtn = document.getElementsByName("end-game");
 const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
 const gamePlayDiv = document.querySelector('#game-play')
@@ -96,11 +97,16 @@ frontPage.addEventListener("click", e => {
       break;
     // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
     case "level-counter":
+      if (levels == 5) {
+        levels = 1
+        endGameBtn.style.display = "block"
+      } else {
+        document.querySelector(`#template-${levels}`).style.display = "block";
+        levels++;
+      }
       document.querySelector(`#template-${levels}`).style.display = "none";
       document.querySelector(`#pass-pic${levels}`).style.display = "none";
       levelCounter[0].style.display = "none";
-      levels++;
-      document.querySelector(`#template-${levels}`).style.display = "block";
       break;
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
@@ -189,8 +195,9 @@ function userFunc() {
         userRecaps.innerHTML += `
         <div class="container"><h1>${userName.value}</h1></div>`;
         if (user) {
+          // debugger
+          const fullStory = [];
           for (var i = user.stories.length; i > 0; i--) {
-            const fullStory = [];
             user.stories.forEach(story => {
               if (story.recap == i) {
                 recapId[story.recap] = true
@@ -218,9 +225,9 @@ function userFunc() {
               otterImgTag.accessKey = `${user.id}`
 
               recapJumboDiv.appendChild(otterImgTag)
-
+              // debugger
               userRecaps.innerHTML += `
-              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`)}
+              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`).join(" ")}
               <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
               <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
               </ul>
