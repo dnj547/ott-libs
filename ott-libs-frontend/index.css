@@ -25,6 +25,7 @@ span {
   width:200px;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
+  position: relative;
 }
 
 .jumbotron.imageDiv {
@@ -33,8 +34,21 @@ span {
   height:200px;
   width:200px;
   margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px !important;
+  padding: 1px 1px 1px 1px !important;
 }
+/* <div class="container">
+  <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%">
+  <div class="middle">
+    <div class="text">John Doe</div>
+  </div>
+</div>
+
+<div id="rj2" class="jumbotron imageDiv">
+  <div class="middle">
+    <div class="recap-text">Recap 2</div>
+  </div>
+  <img src="https://i.ytimg.com/vi/C6g9paOX-4Q/maxresdefault.jpg" class="otterRecapImage" name="viewRecap" id="view2" accesskey="2">
+</div> */
 
 .otterRecapImage {
   display: flex;
@@ -43,10 +57,24 @@ span {
   width:100%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
+  /**/
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
 }
 
 .otterRecapImage:hover {
+  /* border: 10px solid black; */
+  opacity: 0.3;
+}
+
+/* .otterRecapImage:hover .middle{
   border: 10px solid black;
+  opacity: 0.3;
+} */
+.imageDiv:hover .middle {
+  opacity: 1;
 }
 
 .flex-container {
@@ -56,4 +84,22 @@ span {
 
 .hideMe {
   display: none;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.recap-text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
 }

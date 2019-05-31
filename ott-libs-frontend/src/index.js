@@ -98,15 +98,19 @@ frontPage.addEventListener("click", e => {
     // GO TO NEXT LEVEL - HIDE PREVIOUS LEVEL - SHOW CURRENT LEVEL - POPULATE INPUT FIELDS BASED ON SPANS INSIDE STORY
     case "level-counter":
       if (levels == 5) {
+        document.querySelector(`#template-${levels}`).style.display = "none";
+        document.querySelector(`#pass-pic${levels}`).style.display = "none";
+        newGameBtn[0].style.display = "block"
+        userRecaps.style.display = "block"
+        levelCounter[0].style.display = "none";
         levels = 1
-        endGameBtn.style.display = "block"
       } else {
-        document.querySelector(`#template-${levels}`).style.display = "block";
+        document.querySelector(`#template-${levels}`).style.display = "none";
+        document.querySelector(`#pass-pic${levels}`).style.display = "none";
         levels++;
+        document.querySelector(`#template-${levels}`).style.display = "block";
+        levelCounter[0].style.display = "none";
       }
-      document.querySelector(`#template-${levels}`).style.display = "none";
-      document.querySelector(`#pass-pic${levels}`).style.display = "none";
-      levelCounter[0].style.display = "none";
       break;
     // SUBMIT WORDS TO STORY - DETERMINE PASS/FAIL - POST STORY TO USER
     case "submit-level":
@@ -117,7 +121,6 @@ frontPage.addEventListener("click", e => {
       eStory.style.display = "block"
       let storyArr = [];
       let failScore = 0;
-
       for (var i=0; i<spans.length; i++) {
         let uValue = document.querySelector(`#${spans[i].accessKey}`)
         if (answers[levels].includes(uValue.value)) {
@@ -196,8 +199,8 @@ function userFunc() {
         <div class="container"><h1>${userName.value}</h1></div>`;
         if (user) {
           // debugger
-          const fullStory = [];
           for (var i = user.stories.length; i > 0; i--) {
+            const fullStory = [];
             user.stories.forEach(story => {
               if (story.recap == i) {
                 recapId[story.recap] = true
@@ -211,22 +214,35 @@ function userFunc() {
               recapContDiv.id = `rc${i}`
               recapContDiv.classList.add('container')
               recapContDiv.classList.add('recapCont')
+
               let recapJumboDiv = document.createElement('div')
               recapJumboDiv.id = `rj${i}`
               recapJumboDiv.classList.add('jumbotron')
               recapJumboDiv.classList.add('imageDiv')
+              recapJumboDiv.id = `view${i}`
+              recapJumboDiv.accessKey = `${user.id}`
+              recapJumboDiv.setAttribute('name', "viewRecap")
+
+              let recapHover = document.createElement('div')
+              recapHover.classList.add('middle')
+
+              let recapHoverText = document.createElement('div')
+              recapHoverText.classList.add('recap-text')
+              recapHoverText.innerText = `Recap ${i}`
+
+              recapHover.appendChild(recapHoverText)
+              recapJumboDiv.appendChild(recapHover)
               userRecaps.appendChild(recapContDiv)
               recapContDiv.appendChild(recapJumboDiv)
+
               let otterImgTag = document.createElement('img')
               otterImgTag.src = `${otterPics[Math.floor(Math.random()*otterPics.length)]}`
               otterImgTag.classList.add('otterRecapImage')
-              otterImgTag.name = "viewRecap"
-              otterImgTag.id = `view${i}`
-              otterImgTag.accessKey = `${user.id}`
 
-              recapJumboDiv.appendChild(otterImgTag)
+              recapJumboDiv.prepend(otterImgTag)
               // debugger
               userRecaps.innerHTML += `
+
               <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`).join(" ")}
               <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
               <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
@@ -234,12 +250,13 @@ function userFunc() {
               <br>`
             }
           }
-          let recapNum = parseInt(userRecaps.children[1].innerText);
+          let recapNum = userRecaps.children[1].id.replace( /^\D+/g, '');
           recapNum++;
           submitLevelWords.forEach(btn => {
             btn.id = recapNum;
             btn.accessKey = user.id;
           });
+          // debugger
         } else {
           newUser();
         }
