@@ -1,9 +1,15 @@
 #welcome-ott-libs-container {
   text-align: center;
 }
+
 #new-game-btn {
   text-align: center;
 }
+
+#logout-btn {
+  text-align: center;
+}
+
 #game-play {
   background-color: #fff;
   display: none;

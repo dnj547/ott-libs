@@ -6,14 +6,6 @@ RECAPS_URL = "http://localhost:3000/api/v1/recaps";
 let otterFailPics = ["https://i.redd.it/k4w87twml1q01.jpg", "https://i.kinja-img.com/gawker-media/image/upload/s--FJoi4q8S--/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/18ojw7hel2z0ijpg.jpg", "http://getsokt.com/wp-content/uploads/2017/02/1-monday-mourning-99.jpg", "https://farm8.staticflickr.com/7783/18176452435_c21f89b50a_b.jpg", "https://i.chzbgr.com/full/7085969152/h4560A3C9/", "https://i.chzbgr.com/full/8323247616/hAD3DDEDE/"]
 let otterPics = ["https://i.ytimg.com/vi/eLPmUoiQjjo/hqdefault.jpg", "https://i.ytimg.com/vi/C6g9paOX-4Q/maxresdefault.jpg", "https://media1.tenor.com/images/8028b741caa2ce1caf9355e1fbdf7f7f/tenor.gif?itemid=5263676", "https://i.redd.it/kztazrz9xliz.jpg", "https://nexter.org/wp-content/uploads/2017/12/cute-otter-pic-4-800x450.jpg", "https://i.pinimg.com/564x/5d/38/89/5d388907e1527089d146240927739262--river-otter-sea-otter.jpg", "https://nexter.org/wp-content/uploads/2017/12/cute-otter-pic-5-800x533.jpg"]
 
-const answers = {
-  2: [""],
-  3: [""],
-  4: [""],
-  5: [""]
-};
-const recapId = {}
-
 // HTML Variable
 const frontPage = document.querySelector("#front-page");
 const welcomeOttLibsCont = document.querySelector("#welcome-ott-libs-container");
@@ -27,13 +19,20 @@ const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
 const gamePlayDiv = document.querySelector('#game-play')
 
+const answers = {
+  2: [""],
+  3: [""],
+  4: [""],
+  5: [""]
+};
+const recapId = {}
 let levels = 1;
 let continueLevel = 0;
 let recapView = false;
 
 frontPage.addEventListener("click", e => {
-  console.log(e.target.name);
-  console.log(e.target.id);
+  console.log("target", e.target);
+  console.log("name", e.target.name);
   switch (e.target.name) {
     // SIGN IN
     case "signin":
@@ -42,19 +41,22 @@ frontPage.addEventListener("click", e => {
       ottLibsCont.style.display = "block";
       newGameBtn[0].style.display = "block";
       break;
-    case "ott-libs-logo":
-      gamePlayDiv.style.display = "none"
-      ottLibsCont.style.display = "block";
-      newGameBtn[0].style.display = "block";
-      userRecaps.style.display = "block";
+    case "logout":
+      localStorage.clear()
+      welcomeOttLibsCont.style.display = "block";
+      ottLibsCont.style.display = "none";
+      // gamePlayDiv.style.display = "none"
+      // newGameBtn[0].style.display = "block";
+      // userRecaps.style.display = "block";
       break;
     // VIEW RECAPS
     case "viewRecap":
       var idNum = e.target.id.replace( /^\D+/g, '');
+      // debugger
       let reCnt = document.querySelector(`#full-recap${idNum}`)
       for (var i in recapId) {
         if (idNum !== i) {
-          document.querySelector(`#rj${i}`).style.display = 'none';
+          document.querySelector(`#rc${i}`).style.display = 'none';
           document.querySelector(`#view${i}`).style.display = 'none';
         }
       }
@@ -70,12 +72,12 @@ frontPage.addEventListener("click", e => {
       e.target.style.display = "none";
       for (var i in recapId) {
         if (idNum !== i) {
-          document.querySelector(`#rj${i}`).style.display = "block";
+          document.querySelector(`#rc${i}`).style.display = "block";
           document.querySelector(`#view${i}`).style.display = "block";
         }
       }
       document.querySelector(`#full-recap${idNum}`).style.display = "none";
-      document.querySelector(`#rj${idNum}`).style.display = "block";
+      document.querySelector(`#rc${idNum}`).style.display = "block";
       document.querySelector(`#view${idNum}`).style.display = "block";
       break;
     // CONTINUE FROM RECAP VIEW
@@ -100,9 +102,54 @@ frontPage.addEventListener("click", e => {
       if (levels == 5) {
         document.querySelector(`#template-${levels}`).style.display = "none";
         document.querySelector(`#pass-pic${levels}`).style.display = "none";
-        newGameBtn[0].style.display = "block"
-        userRecaps.style.display = "block"
+        gamePlayDiv.style.display = "none";
         levelCounter[0].style.display = "none";
+        fetch(USERS_URL)
+        .then(r => r.json())
+        .then(users => {
+          let user = users.find(user => user.name === userName.value);
+          userRecaps.innerHTML = `
+          <div class="container"><h1>${userName.value}</h1></div>`;
+          if (user) {
+            // debugger
+            for (var i = user.stories.length; i > 0; i--) {
+              const fullStory = [];
+              user.stories.forEach(story => {
+                if (story.recap == i) {
+                  recapId[story.recap] = true
+                  // debugger
+                  fullStory.push(story.full_story);
+                }
+              });
+              // debugger
+              if (fullStory.length > 0) {
+                userRecaps.innerHTML += `
+                  <div name="viewRecap" class="container recapCont" id=rc${i}>
+                    <div id="view${i}" class="jumbotron imageDiv" accesskey=${user.id} name="viewRecap">
+                      <img src=${otterPics[Math.floor(Math.random()*otterPics.length)]} id=${i} class="otterRecapImage" name="viewRecap" />
+                      <div class="middle" name="viewRecap">
+                        <div>Recap ${i}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`).join(" ")}
+                    <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
+                    <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+                  </ul>
+                  <br>
+                `
+              }
+            }
+            let recapNum = userRecaps.children[1].id.replace( /^\D+/g, '');
+            recapNum++;
+            submitLevelWords.forEach(btn => {
+              btn.id = recapNum;
+              btn.accessKey = user.id;
+            });
+          }
+        })
+        userRecaps.style.display = "block"
+        newGameBtn[0].style.display = "block";
         levels = 1
       } else {
         document.querySelector(`#template-${levels}`).style.display = "none";
@@ -128,7 +175,6 @@ frontPage.addEventListener("click", e => {
         }
         spans[i].innerText = uValue.value
       }
-
       storyArr.push(eStory.innerText);
 
       if (failScore == 0) {
@@ -144,12 +190,11 @@ frontPage.addEventListener("click", e => {
         levelCounter[0].style.display = "block"
         storyArr.push(passSpan.innerText)
 
-        // Save Answers to User's Stories
         fetch(STORIES_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json"
+            "Accept": "application/json"
           },
           body: JSON.stringify({
             user_id: e.target.accessKey,
@@ -195,6 +240,7 @@ function userFunc() {
       .then(r => r.json())
       .then(users => {
         let user = users.find(user => user.name === userName.value);
+        localStorage.setItem('user', `${user.name}`)
         userRecaps.innerHTML += `
         <div class="container"><h1>${userName.value}</h1></div>`;
         if (user) {
@@ -210,44 +256,21 @@ function userFunc() {
             });
             // debugger
             if (fullStory.length > 0) {
-              let recapContDiv = document.createElement('div')
-              recapContDiv.id = `rc${i}`
-              recapContDiv.classList.add('container')
-              recapContDiv.classList.add('recapCont')
-
-              let recapJumboDiv = document.createElement('div')
-              recapJumboDiv.id = `rj${i}`
-              recapJumboDiv.classList.add('jumbotron')
-              recapJumboDiv.classList.add('imageDiv')
-              recapJumboDiv.id = `view${i}`
-              recapJumboDiv.accessKey = `${user.id}`
-              recapJumboDiv.setAttribute('name', "viewRecap")
-
-              let recapHover = document.createElement('div')
-              recapHover.classList.add('middle')
-
-              let recapHoverText = document.createElement('div')
-              recapHoverText.classList.add('recap-text')
-              recapHoverText.innerText = `Recap ${i}`
-
-              recapHover.appendChild(recapHoverText)
-              recapJumboDiv.appendChild(recapHover)
-              userRecaps.appendChild(recapContDiv)
-              recapContDiv.appendChild(recapJumboDiv)
-
-              let otterImgTag = document.createElement('img')
-              otterImgTag.src = `${otterPics[Math.floor(Math.random()*otterPics.length)]}`
-              otterImgTag.classList.add('otterRecapImage')
-
-              recapJumboDiv.prepend(otterImgTag)
-              // debugger
               userRecaps.innerHTML += `
-
-              <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`).join(" ")}
-              <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
-              <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
-              </ul>
-              <br>`
+                <div name="viewRecap" class="container recapCont" id=rc${i}>
+                  <div id="view${i}" class="jumbotron imageDiv" accesskey=${user.id} name="viewRecap">
+                    <img src=${otterPics[Math.floor(Math.random()*otterPics.length)]} id=${i} class="otterRecapImage" name="viewRecap" />
+                    <div class="middle" name="viewRecap">
+                      <div>Recap ${i}</div>
+                    </div>
+                  </div>
+                </div>
+                <ul style="display:none;" id="full-recap${i}"> ${fullStory.map(story=>`<li>${story}</li>`).join(" ")}
+                  <button style="display:none" type="button" name="continue" id="cont${i}" accessKey=${user.id} value="Continue">Continue</button>
+                  <button style="display:none" type="button" name="hideRecap" id="hide${i}" accessKey=${user.id} value="Hide">Hide</button>
+                </ul>
+                <br>
+              `
             }
           }
           let recapNum = userRecaps.children[1].id.replace( /^\D+/g, '');
@@ -269,7 +292,7 @@ function newUser() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json"
+      "Accept": "application/json"
     },
     body: JSON.stringify({
       name: userName.value
