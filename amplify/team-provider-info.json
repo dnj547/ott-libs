@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "ott-libs-prod-20190727114041-authRole",
+            "UnauthRoleArn": "arn:aws:iam::877541786099:role/ott-libs-prod-20190727114041-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::877541786099:role/ott-libs-prod-20190727114041-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "ott-libs-prod-20190727114041-deployment",
+            "UnauthRoleName": "ott-libs-prod-20190727114041-unauthRole",
+            "StackName": "ott-libs-prod-20190727114041",
+            "StackId": "arn:aws:cloudformation:us-east-2:877541786099:stack/ott-libs-prod-20190727114041/46d740a0-b08d-11e9-9bcd-02e473ddfb1a"
+        }
+    }
+}
