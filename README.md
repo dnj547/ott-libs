@@ -13,12 +13,17 @@
 * play the game by filling in the blanks
 * view your game recaps
 
-## How do I use Afterthoughts?
+## How do I use Ott Libs?
 open terminal
 ```
-git clone https://github.com/dnj547/afterthoughts.git
-cd afterthoughts
+git clone https://github.com/dnj547/ott-libs.git
+cd ott-libs-backend
 bundle
 rails db:create && rails db:migrate && rails db:seed && rails s
 ```
-go to "http://localhost:3000" in your browser
+open a second terminal window
+```
+cd ott-libs-frontend
+npm start
+yes
+```
