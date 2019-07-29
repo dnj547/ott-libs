@@ -24,6 +24,7 @@ rails db:create && rails db:migrate && rails db:seed && rails s
 open a second terminal window
 ```
 cd ott-libs-frontend
+npm install
 npm start
 yes
 ```
