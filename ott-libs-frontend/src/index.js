@@ -19,12 +19,13 @@ const submitLevelWords = document.querySelectorAll(".submit-level-words");
 const ottLibsCont = document.querySelector("#ott-libs-container");
 const gamePlayDiv = document.querySelector('#game-play')
 
-const answers = {
+const wrongAnswers = {
   2: [""],
   3: [""],
   4: [""],
   5: [""]
 };
+
 const recapId = {}
 let levels = 1;
 let continueLevel = 0;
@@ -170,7 +171,7 @@ frontPage.addEventListener("click", e => {
       let failScore = 0;
       for (var i=0; i<spans.length; i++) {
         let uValue = document.querySelector(`#${spans[i].accessKey}`)
-        if (answers[levels].includes(uValue.value)) {
+        if (wrongAnswers[levels].includes(uValue.value)) {
           failScore++
         }
         spans[i].innerText = uValue.value
